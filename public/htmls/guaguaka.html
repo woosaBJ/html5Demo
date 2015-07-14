@@ -18,8 +18,10 @@
             margin:20px;
             /*background-size: 80px 60px;*/
         }
-        .demo{width:180px; margin:20px auto 30px auto; min-height:60px; text-align: center}
-        .msg{text-align:center; height:32px; line-height:32px; font-weight:bold; margin-top:20px;
+        .demo{width:180px; min-height:60px; text-align: left; margin-top:20px;}
+        .msg{text-align:left; height:32px; line-height:32px; font-weight:bold; margin-top:10px;
+            font-size: 36px; color: red}
+        .msg1{text-align:left; height:20px; line-height:20px; font-weight:bold; margin-top:10px;
             font-size: 30px; color: #00B7FF}
         .info{
             font-family:Arial;
@@ -39,9 +41,11 @@
 <body>
 
 <div id="main">
-    <div class="msg">大奖刮出来</div>
+    <div class="msg">刮刮卡</div>
+    <div class="msg1">大奖刮出来</div>
     <div class="demo">
-        <canvas id="myCanvas"></canvas>
+        <a style="text-align:left; height:25px; line-height:25px; font-weight:normal; margin-top:50px;
+            font-size: 25px; color: black">刮奖区：</a> <canvas id="myCanvas"></canvas>
     </div>
 
 </div>
