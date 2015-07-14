@@ -11,16 +11,28 @@
             background-size: cover;
         }
         #main{
-            border: 5px dotted yellow;
+            border: 2px solid #f0ad4e;
             padding:15px;
-            background: yellow;
+            background: #f0ad4e;
             background-clip: padding-box;
-            margin:30px;
+            margin:20px;
             /*background-size: 80px 60px;*/
         }
-        .demo{width:320px; margin:20px auto 30px auto; min-height:120px; text-align: center}
-        .msg{text-align:center; height:32px; line-height:32px; font-weight:bold; margin-top:50px;
+        .demo{width:180px; margin:20px auto 30px auto; min-height:60px; text-align: center}
+        .msg{text-align:center; height:32px; line-height:32px; font-weight:bold; margin-top:20px;
             font-size: 30px; color: #00B7FF}
+        .info{
+            font-family:Arial;
+            border:2px dotted darkgray;
+            -moz-border-bradius:10px;
+            -webkit-border-radius:15px;
+            padding:15px;
+            height:inherit;
+            /*width:590px;*/
+            background-clip: padding-box;
+            background: white;
+            margin: 20px auto;
+        }
     </style>
 </head>
 
@@ -31,7 +43,30 @@
     <div class="demo">
         <canvas id="myCanvas"></canvas>
     </div>
+
 </div>
+
+<div class="info">
+    奖项设置
+    <ul>
+        <li>一等奖：10元电子券。数量：10张</li>
+        <li>二等奖：5元电子券。数量：20张</li>
+        <li>三等奖：3元电子券。数量：30张</li>
+        <li>参与奖：2元电子券。数量：50张</li>
+    </ul>
+</div>
+
+<div class="info">
+    中奖情况
+    <ul>
+        <li>15210220960，一等奖：10元电子券。</li>
+        <li>13888888888，一等奖：10元电子券。</li>
+        <li>13666666666，二等奖：5元电子券。</li>
+        <li>13555555555，三等奖：10元电子券。</li>
+        <li>13444444444，参与奖：10元电子券。</li>
+    </ul>
+</div>
+
 
 <script type="text/javascript">
     var bodyStyle = document.body.style;
