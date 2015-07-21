@@ -11,11 +11,11 @@ module.exports = function (h5Demo) {
     // */
     //h5Demo.post('/api/projects/:project_id/reports/', prizeInfoCtrl.createReport);
     //
-    ///**
-    // * 查看单个报表
-    // */
-    //h5Demo.get('/api/projects/:project_id/reports/:report_id', prizeInfoCtrl.getReport);
-    //
+    /**
+     * 查看单个记录
+     */
+    h5Demo.get('/api/prize_info/:id', prizeInfoCtrl.getPrizeInfo);
+
     ///**
     // * 查看所有报表
     // */

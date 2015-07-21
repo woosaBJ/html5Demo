@@ -72,7 +72,11 @@
 </div>
 
 
+
 <script type="text/javascript">
+
+    $("#data").load($.getJSON("/api/prize_info/1"));
+
     var bodyStyle = document.body.style;
 
     bodyStyle.mozUserSelect = 'none';
@@ -146,7 +150,9 @@
 
 </script>
 <div id="footer">
+    <div id="data">
 
+    </div>
 </div>
 </body>
 </html>

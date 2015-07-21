@@ -18,8 +18,8 @@ var conf = {
         HOST: '127.0.0.1',
         PORT: 3306,
         USER: 'root',
-        PASSWORD: 'abc123',
-        DB: 'apsara_portal',
+        PASSWORD: '',
+        DB: 'woosa',
         LOGGING: false
     },
 
