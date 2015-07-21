@@ -15,7 +15,7 @@ var conf = {
     },
 
     MYSQL: {
-        HOST: '10.97.252.17',
+        HOST: '127.0.0.1',
         PORT: 3306,
         USER: 'root',
         PASSWORD: 'abc123',
