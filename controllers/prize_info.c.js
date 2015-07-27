@@ -19,16 +19,14 @@ module.exports = {
 
 function createPrizeInfo(req, res, next) {
     var prizeInfo = req.body;
-    try {
-        prizeInfoService
-            .createPrizeInfo(prizeInfo) //promise
-            .then(function (result) {
-                res.status(201).json(result);
-            })
-            .catch(function (err) {
-                next(err);
-            });
-    }
+    prizeInfoService
+        .createPrizeInfo(prizeInfo) //promise
+        .then(function (result) {
+            res.status(201).json(result);
+        })
+        .catch(function (err) {
+            next(err);
+        });
 }
 
 function getPrizeInfo(req, res, next) {

@@ -27,7 +27,7 @@ var conf = {
         ACCESS_TOKEN_PRE: 'access_token.'
     },
 
-    BASE_URL: 'tianji'
+    BASE_URL: 'woosa'
 };
 
 module.exports = conf;

@@ -1,5 +1,6 @@
 var Sequelize = require('sequelize');
 var config = global.config;
+//console.log(config);
 var mysqlConfig = config.MYSQL;
 
 module.exports = new Sequelize(
