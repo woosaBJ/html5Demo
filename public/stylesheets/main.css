@@ -1,0 +1,33 @@
+html {
+    background: url(../images/muwen_bg.jpg) no-repeat center center fixed;
+    background-size: cover;
+}
+#main{
+    border: 2px solid #f0ad3f;
+    padding:15px;
+    background: #f0ad3f;
+    background-clip: padding-box;
+    margin:20px;
+    /*background-size: 80px 60px;*/
+}
+.demo{width:180px; min-height:60px; text-align: left; margin-top:20px;}
+.demo.a{
+    text-align:left; height:25px; line-height:25px; font-weight:normal; margin-top:50px;
+    font-size: 25px; color: black;
+}
+.msg{text-align:left; height:32px; line-height:32px; font-weight:bold; margin-top:10px;
+    font-size: 36px; color: red}
+.msg1{text-align:left; height:20px; line-height:20px; font-weight:bold; margin-top:10px;
+    font-size: 30px; color: dodgerblue}
+.info{
+    font-family:Arial;
+    border:2px dotted darkgray;
+    -moz-border-bradius:10px;
+    -webkit-border-radius:15px;
+    padding:15px;
+    height:inherit;
+    /*width:590px;*/
+    background-clip: padding-box;
+    background: white;
+    margin: 20px auto;
+}

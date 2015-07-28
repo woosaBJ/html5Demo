@@ -2,40 +2,9 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width; initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>演示：使用HTML5实现刮刮卡效果</title>
-    <link rel="stylesheet" type="text/css" href="../css/main.css" />
-    <style type="text/css">
-        html {
-            background: url(../images/muwen_bg.jpg) no-repeat center center fixed;
-            background-size: cover;
-        }
-        #main{
-            border: 2px solid #f0ad4e;
-            padding:15px;
-            background: #f0ad4e;
-            background-clip: padding-box;
-            margin:20px;
-            /*background-size: 80px 60px;*/
-        }
-        .demo{width:180px; min-height:60px; text-align: left; margin-top:20px;}
-        .msg{text-align:left; height:32px; line-height:32px; font-weight:bold; margin-top:10px;
-            font-size: 36px; color: red}
-        .msg1{text-align:left; height:20px; line-height:20px; font-weight:bold; margin-top:10px;
-            font-size: 30px; color: dodgerblue}
-        .info{
-            font-family:Arial;
-            border:2px dotted darkgray;
-            -moz-border-bradius:10px;
-            -webkit-border-radius:15px;
-            padding:15px;
-            height:inherit;
-            /*width:590px;*/
-            background-clip: padding-box;
-            background: white;
-            margin: 20px auto;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/main.css" />
 </head>
 
 <body>
@@ -44,8 +13,7 @@
     <div class="msg">刮刮卡</div>
     <div class="msg1">大奖刮出来</div>
     <div class="demo">
-        <a style="text-align:left; height:25px; line-height:25px; font-weight:normal; margin-top:50px;
-            font-size: 25px; color: black">刮奖区：</a> <canvas id="myCanvas"></canvas>
+        <a>刮奖区：</a> <canvas id="myCanvas"></canvas>
     </div>
 
 </div>
@@ -150,9 +118,6 @@
 
 </script>
 <div id="footer">
-    <div id="data">
-
-    </div>
 </div>
 </body>
 </html>
