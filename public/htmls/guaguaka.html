@@ -3,8 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>演示：使用HTML5实现刮刮卡效果</title>
+    <title>刮刮卡</title>
     <link rel="stylesheet" type="text/css" href="../stylesheets/main.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../images/iconfont-guaguaqia.ico" media="screen" />
 </head>
 
 <body>
@@ -38,12 +39,19 @@
         <li>13444444444，参与奖：10元电子券。</li>
     </ul>
 </div>
+    <div id="data">
+    </div>
+    <button onclick="data()">data</button>
+
 
 
 
 <script type="text/javascript">
 
-//    $("#data").load($.getJSON("/api/prize_info/1"));
+//    $("#data").text($.getJSON("/api/prize_info/1"));
+    function data(){
+        $("#data").text("123456");
+    }
 
     var bodyStyle = document.body.style;
 
