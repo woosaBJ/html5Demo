@@ -15,7 +15,7 @@ module.exports = {
     list: list,
     findById: findById,
     deleteById: deleteById,
-    update: update,
+    update: update
 };
 
 
@@ -96,20 +96,7 @@ function update(prizeInfo) {
 }
 
 function findById(prizeInfoId) {
-    var deferred = Q.defer();
-    PrizeInfo
-        .find(prizeInfoId)
-        .success(function (prizeInfo) {
-            if (prizeInfo) {
-                deferred.resolve(prizeInfo.values);
-            } else {
-                deferred.reject(new errors.NotFoundError('PrizeInfo ' + prizeInfoId + ' not found!'));
-            }
-        })
-        .error(function (err) {
-            deferred.reject(new errors.DatabaseError(err.name + ': ' + err.message));
-        });
-    return deferred.promise;
+    return PrizeInfo.find(prizeInfoId);
 }
 
 function deleteById(prizeInfoId) {

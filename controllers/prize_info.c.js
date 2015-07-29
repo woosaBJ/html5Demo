@@ -30,7 +30,14 @@ function createPrizeInfo(req, res, next) {
 }
 
 function getPrizeInfo(req, res, next) {
-    // not implement yet
+    var id = req.param.id;
+    prizeInfoService.getPrizeInfoById(id)
+        .then(function (result) {
+            res.status(200).json(result);
+        })
+        .catch(function (err) {
+            next(err);
+        });
 }
 
 function queryPrizeInfos(req, res, next) {

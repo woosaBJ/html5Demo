@@ -26,7 +26,7 @@ log4js.configure(
                 'pattern': DATE_FILE_PATTERN,
                 'filename': LOGS_DIR + 'server.log',
                 'backups': BACKUPS,
-                'category': ['filter', 'controller', 'service', 'dao', 'error'],
+                'category': ['app', 'filter', 'controller', 'service', 'dao', 'error'],
                 'alwaysIncludePattern': false
             },
             {
@@ -39,6 +39,9 @@ log4js.configure(
         ]
     }
 );
+
+var app = log4js.getLogger('app');
+app.setLevel('Info');
 
 var express = log4js.getLogger('express');
 express.setLevel('Info');
@@ -63,6 +66,7 @@ uncaughtException.setLevel('Error');
 
 
 module.exports = {
+    app: app,
     express: express,
     filter: filter,
     controller: controller,

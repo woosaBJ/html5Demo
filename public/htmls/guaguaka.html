@@ -4,19 +4,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>刮刮卡</title>
-    <link rel="stylesheet" type="text/css" href="../stylesheets/main.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../images/iconfont-guaguaqia.ico" media="screen" />
+    <link rel="stylesheet" type="text/css" href="../stylesheets/main.css"/>
+    <link rel="shortcut icon" type="image/x-icon" href="../images/iconfont-guaguaqia.ico" media="screen"/>
 </head>
-
 <body>
 
 <div id="main">
     <div class="msg">刮刮卡</div>
     <div class="msg1">大奖刮出来</div>
     <div class="demo">
-        <a>刮奖区：</a> <canvas id="myCanvas"></canvas>
+        <a>刮奖区：</a>
+        <canvas id="myCanvas"></canvas>
     </div>
-
 </div>
 
 <div class="info">
@@ -39,93 +38,93 @@
         <li>13444444444，参与奖：10元电子券。</li>
     </ul>
 </div>
-    <div id="data">
-    </div>
-    <button onclick="data()">data</button>
-
-
-
-
-<script type="text/javascript">
-
-//    $("#data").text($.getJSON("/api/prize_info/1"));
-    function data(){
-        $("#data").text("123456");
-    }
-
-    var bodyStyle = document.body.style;
-
-    bodyStyle.mozUserSelect = 'none';
-    bodyStyle.webkitUserSelect = 'none';
-
-    var img = new Image();
-    var canvas = document.querySelector('canvas');
-
-    canvas.style.backgroundColor='transparent';
-    canvas.style.position = 'absolute';
-    var imgs = ['../images/2_et.png','../images/3_et.png','../images/5_et.png','../images/10_et.png'];
-    var num = Math.floor(Math.random()*4);
-    img.src = imgs[num];
-
-    img.addEventListener('load', function(e) {
-        var ctx;
-        var w = img.width,
-                h = img.height;
-        var offsetX = canvas.offsetLeft,
-                offsetY = canvas.offsetTop;
-        var mousedown = false;
-
-        function layer(ctx) {
-            ctx.fillStyle = 'gray';
-            ctx.fillRect(0, 0, w, h);
-        }
-
-        function eventDown(e){
-            e.preventDefault();
-            mousedown=true;
-        }
-
-        function eventUp(e){
-            e.preventDefault();
-            mousedown=false;
-        }
-
-        function eventMove(e){
-            e.preventDefault();
-            if(mousedown) {
-                if(e.changedTouches){
-                    e=e.changedTouches[e.changedTouches.length-1];
-                }
-                var x = (e.clientX + document.body.scrollLeft || e.pageX) - offsetX || 0,
-                        y = (e.clientY + document.body.scrollTop || e.pageY) - offsetY || 0;
-                with(ctx) {
-                    beginPath()
-                    arc(x, y, 10, 0, Math.PI * 2);
-                    fill();
-                }
-            }
-        }
-
-        canvas.width=w;
-        canvas.height=h;
-        canvas.style.backgroundImage='url('+img.src+')';
-        ctx=canvas.getContext('2d');
-        ctx.fillStyle='transparent';
-        ctx.fillRect(0, 0, w, h);
-        layer(ctx);
-
-        ctx.globalCompositeOperation = 'destination-out';
-
-        canvas.addEventListener('touchstart', eventDown);
-        canvas.addEventListener('touchend', eventUp);
-        canvas.addEventListener('touchmove', eventMove);
-        canvas.addEventListener('mousedown', eventDown);
-        canvas.addEventListener('mouseup', eventUp);
-        canvas.addEventListener('mousemove', eventMove);
-    });
-
-</script>
+<div id="data">
+</div>
 <div id="footer">
 </div>
+
+<script src="../javascripts/jquery.js"></script>
+<script type="text/javascript">
+
+    (function () {
+        $(function () {
+            $.getJSON('/api/prize_info/1', function (data) {
+                console.log(data);
+                $('#data').text(data.name);
+            });
+        });
+
+        var bodyStyle = document.body.style;
+
+        bodyStyle.mozUserSelect = 'none';
+        bodyStyle.webkitUserSelect = 'none';
+
+        var img = new Image();
+        var canvas = document.querySelector('canvas');
+
+        canvas.style.backgroundColor = 'transparent';
+        canvas.style.position = 'absolute';
+        var imgs = ['../images/2_et.png', '../images/3_et.png', '../images/5_et.png', '../images/10_et.png'];
+        var num = Math.floor(Math.random() * 4);
+        img.src = imgs[num];
+
+        img.addEventListener('load', function (e) {
+            var ctx;
+            var w = img.width,
+                    h = img.height;
+            var offsetX = canvas.offsetLeft,
+                    offsetY = canvas.offsetTop;
+            var mousedown = false;
+
+            function layer(ctx) {
+                ctx.fillStyle = 'gray';
+                ctx.fillRect(0, 0, w, h);
+            }
+
+            function eventDown(e) {
+                e.preventDefault();
+                mousedown = true;
+            }
+
+            function eventUp(e) {
+                e.preventDefault();
+                mousedown = false;
+            }
+
+            function eventMove(e) {
+                e.preventDefault();
+                if (mousedown) {
+                    if (e.changedTouches) {
+                        e = e.changedTouches[e.changedTouches.length - 1];
+                    }
+                    var x = (e.clientX + document.body.scrollLeft || e.pageX) - offsetX || 0;
+                    var y = (e.clientY + document.body.scrollTop || e.pageY) - offsetY || 0;
+
+                    ctx.beginPath();
+                    ctx.arc(x, y, 10, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            canvas.width = w;
+            canvas.height = h;
+            canvas.style.backgroundImage = 'url(' + img.src + ')';
+            ctx = canvas.getContext('2d');
+            ctx.fillStyle = 'transparent';
+            ctx.fillRect(0, 0, w, h);
+            layer(ctx);
+
+            ctx.globalCompositeOperation = 'destination-out';
+
+            canvas.addEventListener('touchstart', eventDown);
+            canvas.addEventListener('touchend', eventUp);
+            canvas.addEventListener('touchmove', eventMove);
+            canvas.addEventListener('mousedown', eventDown);
+            canvas.addEventListener('mouseup', eventUp);
+            canvas.addEventListener('mousemove', eventMove);
+        });
+    })();
+</script>
+
 </body>
 </html>
