@@ -1,6 +1,7 @@
 html {
-    background: url(../images/muwen_bg.jpg) no-repeat center center fixed;
-    background-size: cover;
+    /*background: url(../images/muwen_bg.jpg) no-repeat center center fixed;*/
+    background-size: contain;
+    background-color: #FFAB00;
 }
 #main{
     border: 2px solid #f0ad3f;
