@@ -13,6 +13,7 @@ module.exports = db.define('PrizeInfo', {
         name: Sequelize.STRING,
         description: Sequelize.STRING,
         content: Sequelize.STRING,
+        limits: Sequelize.INTEGER,
         status: Sequelize.INTEGER,
         published_at: Sequelize.DATE,
         expired_at: Sequelize.DATE
