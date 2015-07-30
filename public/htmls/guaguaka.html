@@ -26,23 +26,14 @@
 
 <div class="info">
     奖项设置
-    <ul>
-        <li>一等奖：10元电子券。数量：10张</li>
-        <li>二等奖：5元电子券。数量：20张</li>
-        <li>三等奖：3元电子券。数量：30张</li>
-        <li>参与奖：2元电子券。数量：50张</li>
-    </ul>
+    <ol class="prize_set">
+    </ol>
 </div>
 
 <div class="info">
     中奖情况
-    <ul>
-        <li>15210220960，一等奖：10元电子券。</li>
-        <li>13888888888，一等奖：10元电子券。</li>
-        <li>13666666666，二等奖：5元电子券。</li>
-        <li>13555555555，三等奖：10元电子券。</li>
-        <li>13444444444，参与奖：10元电子券。</li>
-    </ul>
+    <ol class="prize_result">
+    </ol>
 </div>
 <div id="data">
 </div>
@@ -54,9 +45,10 @@
 
     (function () {
         $(function () {
-            $.getJSON('/api/prize_info/1', function (data) {
-                console.log(data);
-                $('#data').text(data.name);
+            $.getJSON('/api/prize_info/name/guaguaka', function (data) {
+                $(data).each(function(index) {
+                    $(".prize_set").append("<li>" + data[index].description + ":" + data[index].content + ", 数量:" + data[index].limits +"台。</li>");
+                });
             });
         });
 
@@ -70,8 +62,8 @@
 
         canvas.style.backgroundColor = 'transparent';
         canvas.style.position = 'absolute';
-        var imgs = ['../images/2_et.png', '../images/3_et.png', '../images/5_et.png', '../images/10_et.png'];
-        var num = Math.floor(Math.random() * 4);
+        var imgs = ['../images/ggk_1.png', '../images/ggk_2.png', '../images/ggk_3.png', '../images/ggk_4.png', '../images/ggk_5.png'];
+        var num = Math.floor(Math.random() * 5);
         img.src = imgs[num];
 
         img.addEventListener('load', function (e) {

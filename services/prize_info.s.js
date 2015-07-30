@@ -13,6 +13,7 @@ var prizeInfoDao = require('../daos/prize_info.d');
 
 module.exports = {
     getPrizeInfoById: getPrizeInfoById,
+    getPrizeInfoByName: getPrizeInfoByName,
     createPrizeInfo: createPrizeInfo,
     listPrizeInfos: listPrizeInfos,
     updatePrizeInfo: updatePrizeInfo,
@@ -25,6 +26,10 @@ function getPrizeInfoById(id) {
 
 function createPrizeInfo(prizeInfo) {
     return prizeInfoDao.create(prizeInfo);
+}
+
+function getPrizeInfoByName(name){
+    return prizeInfoDao.findByName(name);
 }
 
 function listPrizeInfos() {

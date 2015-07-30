@@ -10,6 +10,7 @@ var prizeInfoService = require('../services/prize_info.s');
 module.exports = {
     createPrizeInfo: createPrizeInfo,
     getPrizeInfo: getPrizeInfo,
+    getPrizeInfos: getPrizeInfos,
     queryPrizeInfos: queryPrizeInfos,
     updatePrizeInfo: updatePrizeInfo,
     deletePrizeInfo: deletePrizeInfo,
@@ -31,9 +32,23 @@ function createPrizeInfo(req, res, next) {
 
 function getPrizeInfo(req, res, next) {
     var id = req.param.id;
+    logger.info(id);
+
     prizeInfoService.getPrizeInfoById(id)
         .then(function (result) {
             res.status(200).json(result);
+        })
+        .catch(function (err) {
+            next(err);
+        });
+}
+
+function getPrizeInfos(req, res, next) {
+    var name = req.params.name;
+    logger.info(name);
+    prizeInfoService.getPrizeInfoByName(name)
+        .then(function (prizeInfos) {
+            res.json(prizeInfos);
         })
         .catch(function (err) {
             next(err);

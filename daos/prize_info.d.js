@@ -14,6 +14,7 @@ module.exports = {
     create: create,
     list: list,
     findById: findById,
+    findByName: findByName,
     deleteById: deleteById,
     update: update
 };
@@ -97,6 +98,15 @@ function update(prizeInfo) {
 
 function findById(prizeInfoId) {
     return PrizeInfo.find(prizeInfoId);
+}
+
+function findByName(prizeInfoName) {
+    logger.info(prizeInfoName);
+    return PrizeInfo.findAll({
+        where: {
+            name: prizeInfoName
+        }
+    });
 }
 
 function deleteById(prizeInfoId) {
