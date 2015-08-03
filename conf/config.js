@@ -2,15 +2,14 @@ var conf = {
     SERVER_PORT: 8083,
 
     MYSQL: {
-        HOST: '127.0.0.1',
+        HOST: '10.10.38.211',
         PORT: 3306,
-        USER: 'root',
-        PASSWORD: '',
-        DB: 'woosa',
+        USER: 'wusha',
+        PASSWORD: 'wusha',
+        DB: 'vc',
         LOGGING: false
     },
 
-    BASE_URL: 'woosa'
 };
 
 module.exports = conf;
