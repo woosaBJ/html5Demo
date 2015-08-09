@@ -31,7 +31,7 @@ function createPrizeInfo(req, res, next) {
 }
 
 function getPrizeInfo(req, res, next) {
-    var id = req.param.id;
+    var id = req.params.id;
     logger.info(id);
 
     prizeInfoService.getPrizeInfoById(id)

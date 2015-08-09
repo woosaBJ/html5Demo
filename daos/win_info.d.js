@@ -1,59 +1,34 @@
 /**
- * Created by woosa on 15/7/20.
+ * Created by woosa on 15/8/6.
  */
-
 var Q = require('q');
 
 var logger = require('../logger').dao;
 var errors = require('../errors');
 
-var PrizeInfo = require('../models/prize_info.m');
+var winInfo = require('../models/win_info.m');
 
 
 module.exports = {
     create: create,
     list: list,
     findById: findById,
-    findByName: findByName,
+    findByUserId: findByUserId,
+    findByPrizeName: findByPrizeName,
     deleteById: deleteById,
     update: update
 };
 
 
-function create(prizeInfo) {
-    var deferred = Q.defer();
-    if (prizeInfo.is_published) {
-        prizeInfo.published_at = new Date();
-    }
-    PrizeInfo
-        .find({
-            where: {
-                name: prizeInfo.name
-            }
-        })
-        .success(function (sameNamePrizeInfo) {
-            if (sameNamePrizeInfo) {
-                deferred.reject(new errors.BadRequestError('PrizeInfo ' + prizeInfo.name + ' already exists!'));
-            } else {
-                PrizeInfo
-                    .create(prizeInfo)
-                    .success(function (result) {
-                        deferred.resolve(result.values);
-                    })
-                    .error(function (err) {
-                        deferred.reject(new errors.DatabaseError(err.name + ': ' + err.message));
-                    });
-            }
-        })
-        .error(function (err) {
-            deferred.reject(new errors.DatabaseError(err.name + ': ' + err.message));
-        });
-    return deferred.promise;
+function create(info) {
+    return winInfo
+        .create(info);
+
 }
 
 function list() {
     var deferred = Q.defer();
-    PrizeInfo
+    winInfo
         .findAll()
         .success(function (prizeInfos) {
             var result = [];
@@ -81,11 +56,11 @@ function update(prizeInfo) {
             delete prizeInfo.published_at;
         }
     }
-    PrizeInfo
+    winInfo
         .update(prizeInfo, {id: prizeInfo.id})
         .success(function (affectedRows) {
             if (affectedRows === 0) {
-                deferred.reject(new errors.NotFoundError('PrizeInfo ' + prizeInfo.id + ' not found!'));
+                deferred.reject(new errors.NotFoundError('winInfo ' + prizeInfo.id + ' not found!'));
             } else {
                 deferred.resolve();
             }
@@ -96,24 +71,33 @@ function update(prizeInfo) {
     return deferred.promise;
 }
 
-function findById(prizeInfoId) {
-    return PrizeInfo.findById(prizeInfoId);
+function findById(winInfoId) {
+    return winInfo.findById(winInfoId);
 }
 
-function findByName(prizeInfoName) {
-    logger.info(prizeInfoName);
-    return PrizeInfo.findAll({
+function findByUserId(userId) {
+    logger.info(userId);
+    return winInfo.findAll({
         where: {
-            name: prizeInfoName
+            user_id: userId
         }
     });
 }
 
-function deleteById(prizeInfoId) {
+function findByPrizeName(prizeName) {
+    logger.info(prizeName);
+    return winInfo.findAll({
+        where: {
+            prize_name: prizeName
+        }
+    });
+}
+
+function deleteById(winInfoId) {
     var deferred = Q.defer();
-    PrizeInfo
+    winInfo
         .destroy({
-            id: prizeInfoId
+            id: winInfoId
         })
         .success(function (affectedRows) {
             deferred.resolve(affectedRows);
@@ -123,4 +107,3 @@ function deleteById(prizeInfoId) {
         });
     return deferred.promise;
 }
-

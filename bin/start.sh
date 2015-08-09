@@ -1,2 +1,2 @@
 #!/bin/bash
-../node-v0.12.7-linux-x64/node ./bin/www
+nohup ../node-v0.12.7-linux-x64/bin/node www >> nohup.out 2>&1 &

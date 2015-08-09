@@ -14,13 +14,15 @@
     </style>
 </head>
 <body>
-<div id="data">
-</div>
+
 
 <!--<img id="robot" src="../images/ggk_1.png" />-->
 <img id="base" />
 <img id="redux" src="../images/cover.png" />
 <div id="progress">0%</div>
+</div>
+
+<div id="data">
 </div>
 <!--<button onclick="test()">testttt</button>-->
 </body>
@@ -28,14 +30,22 @@
 <script src='../javascripts/jquery.eraser.js' type='text/javascript'></script>
 <script type="text/javascript">
 
-    function test(){
-//        $("#data").text("123456");
-        console.log($.getJSON("/api/prize_info/1"));
-        $("#data").text($.getJSON("/api/prize_info/1"));
-    }
+
 
 
     $(function(){
+
+//        $("#data").text("123456");
+        var num = 1;
+        $.getJSON("/api/prize_info/:" + num, function(prize){
+
+            console.log(prize);
+            console.log(prize[0]);
+            console.log(prize.content);
+            $("#data").text(prize.description);
+
+
+        });
 
         $(document).ready(function() {
             var imgs = ['../images/ggk_1.png', '../images/ggk_2.png', '../images/ggk_3.png', '../images/ggk_4.png', '../images/ggk_5.png'];

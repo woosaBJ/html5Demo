@@ -77,7 +77,7 @@
                 width = realWidth * scaleRatio,
                 height = realHeight * scaleRatio,
                 pos = $this.offset(),
-                size = ((options && options.size) ? options.size : 40) * scaleRatio,
+                size = ((options && options.size) ? options.size : 20) * scaleRatio,
                 completeRatio = (options && options.completeRatio) ? options.completeRatio : .7,
                 completeFunction = (options && options.completeFunction) ? options.completeFunction : null,
                 progressFunction = (options && options.progressFunction) ? options.progressFunction : null,
