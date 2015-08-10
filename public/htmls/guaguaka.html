@@ -33,16 +33,13 @@
             <div id="remind" class="alert alert-danger" role="alert"></div>
             <div class="row">
                 <div class="col-xs-8 col-sm-4">
-                    <input type="text" placeholder="请输入手机号" class="form-control" id="mobile">
-
+                    <input type="text" placeholder="请输入手机号" class="form-control" id="mobile" required="true" />
                 </div>
                 <div class="col-xs-4 col-sm-8">
                     <button class="btn btn-success" id="receive">领取</button>
-
                 </div>
-
             </div>
-
+            <div id="warn" class="alert alert-danger" role="alert" hidden></div>
         </div>
     </div>
 
@@ -75,6 +72,7 @@
 
 <script src="../javascripts/jquery.min.js"></script>
 <script src="../javascripts/jquery.eraser.js"></script>
+<script src="../javascripts/jquery.validate.js" type="text/javascript"></script>
 <script type="text/javascript">
 
     $(function () {
@@ -103,9 +101,26 @@
             }
         });
 
-        $('#receive').click(function () {
-            $('#receive').attr('disabled', true);
 
+
+        $('#receive').click(function () {
+            $('#warn').hide();
+
+            if($("#mobile").val()==""){
+                console.log("手机号为空")
+                $('#warn').html('');
+                $('#warn').append('请输入手机号领奖!');
+                $('#warn').show();
+                return;
+            }
+            if(!/^1\d{10}$/.test($("#mobile").val())){
+                console.log("手机号不合法")
+                $('#warn').html('');
+                $('#warn').append('请输入合法的手机号!');
+                $('#warn').show();
+                return;
+            }
+            $('#receive').attr('disabled', true);
             $.ajax({
                 url: '/api/win_info/',
                 method: 'POST',
@@ -116,6 +131,7 @@
                     is_get: 0
                 }
             }).done(function() {
+                $('#data').hide();
                 getPrizeResult();
             });
             return false;
@@ -141,7 +157,7 @@
                 $(".prize_result").html('');
                 $(data).each(function (index) {
                     $.getJSON("/api/prize_info/" + data[index].prize_id, function (priz) {
-                        $(".prize_result").append("<li>用户" + data[index].user_id + "获得" + priz.content + "1台。</li>");
+                        $(".prize_result").append("<li>用户" + data[index].user_id + "获得" + priz.content + "</li>");
                     });
                 });
             });

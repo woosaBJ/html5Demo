@@ -89,7 +89,11 @@ function findByPrizeName(prizeName) {
     return winInfo.findAll({
         where: {
             prize_name: prizeName
-        }
+        },
+        order: [
+            ['created_at', 'DESC']
+        ]
+
     });
 }
 
