@@ -24,6 +24,7 @@
                 <p>刮奖区：</p>
             </div>
             <div style="display: inline-block; position: relative;">
+                <input id="num" value="" hidden />
                 <img id="base" class="img-thumbnail" alt="180x40" style="width: 180px; height: 40px;">
                 <img id="cover" class="img" alt="180x40" src="../images/cover.png" style="width: 180px; height: 40px;"/>
             </div>
@@ -99,18 +100,8 @@
             params.num = 4;
             params.sum = 20;
         }
-        getSumWinPrize(params);
-        var num = this.num;
-        function getSumWinPrize(params) {
-            $.getJSON('/api/win_info/prize_name/guaguaka/count/'+(params.num+1),function(sum) {
-                if(sum >= params.sum){
-                    this.num = 5;
-                }
-                console.log('counted num is ' + num);
-            });
-        }
+        var num = params.num;
 
-        console.log('num is genRandomNum() = ' + num);
         init();
 
         $('#cover').eraser({
@@ -119,7 +110,8 @@
                     $('#cover').eraser('clear');
                     event.preventDefault();
 //                    $('#data').html(Math.round(p*200)+'%');
-                    var prize_id = num + 1;
+                    var prize_id = $("#num").value()+1;
+                    console.log(prize_id);
                     $.getJSON("/api/prize_info/" + prize_id, function (p) {
                         prize = p;
                         $('#remind').append('恭喜您中了' + prize.description + ', 奖品为:<strong>' + prize.content + '</strong>, 请输入手机号领奖！');
@@ -164,7 +156,14 @@
         });
 
         function init() {
-            $("#base").attr("src", imgs[num]);
+            $.getJSON('/api/win_info/prize_name/guaguaka/count/'+(params.num+1),function(sum) {
+                if(sum >= params.sum){
+                    num = 5;
+                }
+                console.log('counted num is ' +num);
+                $("#base").attr("src", imgs[num]);
+                $("#num").attr("value", num);
+            });
             getPrizeSet();
             getPrizeResult();
         }
@@ -187,11 +186,6 @@
                 });
             });
         }
-
-
-
-
-
     });
 
 </script>
