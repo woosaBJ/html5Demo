@@ -14,7 +14,8 @@ module.exports = {
     getWinInfoById: getWinInfoById,
     createWinInfo: createWinInfo,
     getWinInfoByUserId: getWinInfoByUserId,
-    getWinInfosByPrizeName: getWinInfosByPrizeName
+    getWinInfosByPrizeName: getWinInfosByPrizeName,
+    getSumWinInfosByPrizeName: getSumWinInfosByPrizeName
 };
 
 function getWinInfoById(id) {
@@ -31,4 +32,8 @@ function getWinInfoByUserId(userId){
 
 function getWinInfosByPrizeName(prizeName){
     return winInfoDao.findByPrizeName(prizeName);
+}
+
+function getSumWinInfosByPrizeName(winPrize){
+    return winInfoDao.getSumByPrizeName(winPrize);
 }

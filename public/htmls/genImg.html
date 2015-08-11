@@ -37,18 +37,19 @@
             var canvas = document.getElementById("myCanvas");
             var ctx = canvas.getContext("2d");
 
-//            ctx.fillStyle = "rgba(125, 46, 138, 0.5)";
-            ctx.fillStyle = "gray";
-//            ctx.fillStyle = "white";
+            ctx.fillStyle = "rgba(125, 46, 138, 0.5)";
+//            ctx.fillStyle = "gray";
+            ctx.fillStyle = "white";
             ctx.fillRect(0,0,180,60);
-//            ctx.font = "26px Arial";
+            ctx.font = "26px Arial";
 
             ctx.fillStyle = "rgba( 0, 0, 0, 1)"; // black color
-            ctx.fillStyle="gray";
+//            ctx.fillStyle="gray";
 //            ctx.fillText("2元电子券", 60, 25);//在此修改图片上的文字内容
 //            ctx.fillText("3元电子券", 60, 25);//在此修改图片上的文字内容
 //            ctx.fillText("5元电子券", 60, 25);//在此修改图片上的文字内容
 //            ctx.fillText("鼓励奖", 50, 30);//在此修改图片上的文字内容
+            ctx.fillText("谢谢参与", 40, 30);//在此修改图片上的文字内容
         }
 
         function bindButtonEvent(element, type, handler)

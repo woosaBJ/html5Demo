@@ -39,7 +39,7 @@
                     <button class="btn btn-success" id="receive">领取</button>
                 </div>
             </div>
-            <div id="warn" class="alert alert-danger" role="alert" hidden></div>
+            <div id="warn" class="alert alert-danger" role="alert" hidden style="margin-top: 20px;"></div>
         </div>
     </div>
 
@@ -72,17 +72,45 @@
 
 <script src="../javascripts/jquery.min.js"></script>
 <script src="../javascripts/jquery.eraser.js"></script>
-<script src="../javascripts/jquery.validate.js" type="text/javascript"></script>
 <script type="text/javascript">
 
     $(function () {
 
-        var weight = 0;
-        var imgs = ['../images/ggk_1.png', '../images/ggk_2.png', '../images/ggk_3.png', '../images/ggk_4.png', '../images/ggk_5.png'];
-        var num = Math.floor(Math.random() * 5);
-        var prize;
-        console.log(num);
 
+        var imgs = ['../images/ggk_1.png', '../images/ggk_2.png', '../images/ggk_3.png', '../images/ggk_4.png', '../images/ggk_5.png', '../images/ggk_6.png'];
+        var prize;
+        var weight = 60;
+        var count = Math.floor(Math.random()*weight);
+        console.log('count is ' + count);
+        var params = {};
+        if((count >= 0 && count < 5)){
+            params.num = 0;
+            params.sum = 5;
+        }else if(count >= 5 && count < 10){
+            params.num = 1;
+            params.sum = 5;
+        }else if(count >= 10 && count < 20){
+            params.num = 2;
+            params.sum = 10;
+        }else if(count >= 20 && count < 40){
+            params.num = 3;
+            params.sum = 20;
+        }else{
+            params.num = 4;
+            params.sum = 20;
+        }
+        getSumWinPrize(params);
+        var num = this.num;
+        function getSumWinPrize(params) {
+            $.getJSON('/api/win_info/prize_name/guaguaka/count/'+(params.num+1),function(sum) {
+                if(sum >= params.sum){
+                    this.num = 5;
+                }
+                console.log('counted num is ' + num);
+            });
+        }
+
+        console.log('num is genRandomNum() = ' + num);
         init();
 
         $('#cover').eraser({
@@ -100,8 +128,6 @@
                 }
             }
         });
-
-
 
         $('#receive').click(function () {
             $('#warn').hide();
@@ -147,7 +173,6 @@
             $.getJSON('/api/prize_info/name/guaguaka', function (data) {
                 $(data).each(function (index) {
                     $(".prize_set").append("<li>" + data[index].description + ":" + data[index].content + ", 数量:" + data[index].limits + "台。</li>");
-                    weight = weight + data[index].limits;
                 });
             });
         }
@@ -162,6 +187,11 @@
                 });
             });
         }
+
+
+
+
+
     });
 
 </script>

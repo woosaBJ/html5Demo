@@ -15,6 +15,7 @@ module.exports = {
     findById: findById,
     findByUserId: findByUserId,
     findByPrizeName: findByPrizeName,
+    getSumByPrizeName: getSumByPrizeName,
     deleteById: deleteById,
     update: update
 };
@@ -110,4 +111,14 @@ function deleteById(winInfoId) {
             deferred.reject(new errors.DatabaseError(err.name + ': ' + err.message));
         });
     return deferred.promise;
+}
+
+function getSumByPrizeName(winPrize) {
+    logger.info(winPrize);
+    return winInfo.count({
+        where: {
+            prize_name: winPrize.prize_name,
+            prize_id: winPrize.prize_id
+        }
+    });
 }

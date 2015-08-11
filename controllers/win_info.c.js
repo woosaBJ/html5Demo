@@ -11,7 +11,8 @@ module.exports = {
     createWinInfo: createWinInfo,
     getWinInfo: getWinInfo,
     getWinInfos: getWinInfos,
-    getWinInfosByPrizeName: getWinInfosByPrizeName
+    getWinInfosByPrizeName: getWinInfosByPrizeName,
+    getSumWinInfosByPrizeName: getSumWinInfosByPrizeName
 };
 
 
@@ -53,6 +54,7 @@ function getWinInfos(req, res, next) {
         });
 }
 
+
 function getWinInfosByPrizeName(req, res, next) {
     var prizeName = req.params.prize_name;
     logger.info(prizeName);
@@ -65,3 +67,21 @@ function getWinInfosByPrizeName(req, res, next) {
         });
 }
 
+
+function getSumWinInfosByPrizeName(req, res, next) {
+    var prizeName = req.params.prize_name;
+    var prizeId = req.params.prize_id;
+    var winPrize = {
+        "prize_name": prizeName,
+        "prize_id": prizeId
+    }
+
+    logger.info(prizeName);
+    winInfoService.getSumWinInfosByPrizeName(winPrize)
+        .then(function (winInfos) {
+            res.json(winInfos);
+        })
+        .catch(function (err) {
+            next(err);
+        });
+}

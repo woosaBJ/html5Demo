@@ -24,4 +24,8 @@ module.exports = function (h5Demo) {
      * 查看某类型的中奖纪录
      */
     h5Demo.get('/api/win_info/prize_name/:prize_name', winInfoCtrl.getWinInfosByPrizeName);
+    /**
+     * 统计某类型的中奖纪录个数
+     */
+    h5Demo.get('/api/win_info/prize_name/:prize_name/count/:prize_id', winInfoCtrl.getSumWinInfosByPrizeName);
 }

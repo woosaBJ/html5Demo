@@ -35,6 +35,11 @@
 
     $(function(){
 
+
+        var sum = 60;
+        console.log(Math.floor(Math.random()*sum));
+
+
 //        $("#data").text("123456");
         var num = 1;
         $.getJSON("/api/prize_info/:" + num, function(prize){
