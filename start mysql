@@ -1,1 +1,3 @@
 sudo /Applications/XAMPP/xamppfiles/bin/mysql.server start
+
+scp -r html5Demo mpsp@10.10.67.132:/home/mpsp/woosa/ --exclude html5Demo/conf

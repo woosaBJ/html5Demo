@@ -15,20 +15,22 @@
 
 <div class="container">
     <i class="icon iconfontbig">&#x3555;</i>
+    <i class="icon iconfontbig">&#xe789;</i>
 
     <div class="well">
         <p>刮开看看运气吧！</p>
-
         <div>
             <div style="display: inline-block;">
                 <p>刮奖区：</p>
             </div>
             <div style="display: inline-block; position: relative;">
-                <input id="num" value="" hidden />
+                <input id="num" hidden />
                 <img id="base" class="img-thumbnail" alt="180x40" style="width: 180px; height: 40px;">
                 <img id="cover" class="img" alt="180x40" src="../images/cover.png" style="width: 180px; height: 40px;"/>
             </div>
         </div>
+
+        <div id="unlucky" class="alert alert-danger" role="alert" hidden style="margin-top: 20px;"></div>
 
         <div id="data" hidden class="clearfix" style="margin-top: 20px;">
             <div id="remind" class="alert alert-danger" role="alert"></div>
@@ -80,27 +82,40 @@
 
         var imgs = ['../images/ggk_1.png', '../images/ggk_2.png', '../images/ggk_3.png', '../images/ggk_4.png', '../images/ggk_5.png', '../images/ggk_6.png'];
         var prize;
-        var weight = 60;
-        var count = Math.floor(Math.random()*weight);
-        console.log('count is ' + count);
-        var params = {};
-        if((count >= 0 && count < 5)){
-            params.num = 0;
-            params.sum = 5;
-        }else if(count >= 5 && count < 10){
-            params.num = 1;
-            params.sum = 5;
-        }else if(count >= 10 && count < 20){
-            params.num = 2;
-            params.sum = 10;
-        }else if(count >= 20 && count < 40){
-            params.num = 3;
-            params.sum = 20;
-        }else{
-            params.num = 4;
-            params.sum = 20;
-        }
-        var num = params.num;
+
+        $(document).ready(function(){
+            var weight = 60;
+            var count = Math.floor(Math.random()*weight);
+            console.log('count is ' + count);
+            var params = {};
+            var num;
+            if((count >= 0 && count < 5)){
+                params.num = 0;
+                params.sum = 5;
+            }else if(count >= 5 && count < 10){
+                params.num = 1;
+                params.sum = 5;
+            }else if(count >= 10 && count < 20){
+                params.num = 2;
+                params.sum = 10;
+            }else if(count >= 20 && count < 40){
+                params.num = 3;
+                params.sum = 20;
+            }else{
+                params.num = 4;
+                params.sum = 20;
+            }
+            $.getJSON('/api/win_info/prize_name/guaguaka/count/'+(params.num+1),function(sum) {
+                console.log('counted sum is ' + sum);
+                if(sum >= params.sum){
+                    params.num = 5;
+                }
+                num = params.num;
+                $("#base").attr("src", imgs[num]);
+                $("#num").attr("value", num);
+            });
+        });
+
 
         init();
 
@@ -110,13 +125,18 @@
                     $('#cover').eraser('clear');
                     event.preventDefault();
 //                    $('#data').html(Math.round(p*200)+'%');
-                    var prize_id = $("#num").value()+1;
+                    var prize_id = Number($("#num").val())+1;
                     console.log(prize_id);
-                    $.getJSON("/api/prize_info/" + prize_id, function (p) {
-                        prize = p;
-                        $('#remind').append('恭喜您中了' + prize.description + ', 奖品为:<strong>' + prize.content + '</strong>, 请输入手机号领奖！');
-                        $('#data').show();
-                    });
+                    if(prize_id>5){
+                        $('#unlucky').append('很抱歉未中奖，下次再来吧！');
+                        $('#unlucky').show();
+                    }else{
+                        $.getJSON("/api/prize_info/" + prize_id , function (p) {
+                            prize = p;
+                            $('#remind').append('恭喜您中了' + prize.description + ', 奖品为:<strong>' + prize.content + '</strong>, 请输入手机号领奖！');
+                            $('#data').show();
+                        });
+                    }
                 }
             }
         });
@@ -144,7 +164,7 @@
                 method: 'POST',
                 data: {
                     user_id: $('#mobile').val(),
-                    prize_id: num + 1,
+                    prize_id: Number($("#num").val())+1,
                     prize_name: prize.name,
                     is_get: 0
                 }
@@ -156,14 +176,7 @@
         });
 
         function init() {
-            $.getJSON('/api/win_info/prize_name/guaguaka/count/'+(params.num+1),function(sum) {
-                if(sum >= params.sum){
-                    num = 5;
-                }
-                console.log('counted num is ' +num);
-                $("#base").attr("src", imgs[num]);
-                $("#num").attr("value", num);
-            });
+
             getPrizeSet();
             getPrizeResult();
         }
@@ -181,7 +194,8 @@
                 $(".prize_result").html('');
                 $(data).each(function (index) {
                     $.getJSON("/api/prize_info/" + data[index].prize_id, function (priz) {
-                        $(".prize_result").append("<li>用户" + data[index].user_id + "获得" + priz.content + "</li>");
+                        console.log(data[index].prize_id);
+                        $(".prize_result").append("<li>用户" + data[index].user_id.substring(0, 3) +"****" + data[index].user_id.substring(7, 11) + "获得" + priz.content + "</li>");
                     });
                 });
             });
