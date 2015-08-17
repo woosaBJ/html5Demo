@@ -61,7 +61,7 @@ function update(prizeInfo) {
         .update(prizeInfo, {id: prizeInfo.id})
         .success(function (affectedRows) {
             if (affectedRows === 0) {
-                deferred.reject(new errors.NotFoundError('winInfo ' + prizeInfo.id + ' not found!'));
+                deferred.reject(new errors.NotFoundError('lessons ' + prizeInfo.id + ' not found!'));
             } else {
                 deferred.resolve();
             }

@@ -10,6 +10,9 @@
     <link rel="stylesheet" type="text/css" href="../stylesheets/main.css"/>
 
     <link rel="shortcut icon" type="image/x-icon" href="../images/iconfont-guaguaqia.ico" media="screen"/>
+
+    <!--<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>-->
+    <!--<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>-->
 </head>
 <body>
 
@@ -86,7 +89,7 @@
         $(document).ready(function(){
             var weight = 60;
             var count = Math.floor(Math.random()*weight);
-            console.log('count is ' + count);
+//            console.log('count is ' + count);
             var params = {};
             var num;
             if((count >= 0 && count < 5)){
@@ -106,7 +109,7 @@
                 params.sum = 20;
             }
             $.getJSON('/api/win_info/prize_name/guaguaka/count/'+(params.num+1),function(sum) {
-                console.log('counted sum is ' + sum);
+//                console.log('counted sum is ' + sum);
                 if(sum >= params.sum){
                     params.num = 5;
                 }
@@ -126,7 +129,7 @@
                     event.preventDefault();
 //                    $('#data').html(Math.round(p*200)+'%');
                     var prize_id = Number($("#num").val())+1;
-                    console.log(prize_id);
+//                    console.log(prize_id);
                     if(prize_id>5){
                         $('#unlucky').append('很抱歉未中奖，下次再来吧！');
                         $('#unlucky').show();
@@ -145,14 +148,14 @@
             $('#warn').hide();
 
             if($("#mobile").val()==""){
-                console.log("手机号为空")
+//                console.log("手机号为空")
                 $('#warn').html('');
                 $('#warn').append('请输入手机号领奖!');
                 $('#warn').show();
                 return;
             }
             if(!/^1\d{10}$/.test($("#mobile").val())){
-                console.log("手机号不合法")
+//                console.log("手机号不合法")
                 $('#warn').html('');
                 $('#warn').append('请输入合法的手机号!');
                 $('#warn').show();
@@ -176,7 +179,6 @@
         });
 
         function init() {
-
             getPrizeSet();
             getPrizeResult();
         }
@@ -194,7 +196,7 @@
                 $(".prize_result").html('');
                 $(data).each(function (index) {
                     $.getJSON("/api/prize_info/" + data[index].prize_id, function (priz) {
-                        console.log(data[index].prize_id);
+//                        console.log(data[index].prize_id);
                         $(".prize_result").append("<li>用户" + data[index].user_id.substring(0, 3) +"****" + data[index].user_id.substring(7, 11) + "获得" + priz.content + "</li>");
                     });
                 });

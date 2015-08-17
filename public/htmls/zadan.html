@@ -5,97 +5,139 @@
     <meta name="keywords" content="jquery,php"/>
     <link rel="shortcut icon" type="image/x-icon" href="../images/iconfont-zajindan.png" media="screen" />
 
-    <title>砸金蛋：jQuery实现的砸金蛋中奖程序</title>
+    <title>砸金蛋</title>
+    <link href="../stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../stylesheets/iconfont.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/egg.css"/>
 </head>
 
 <body>
-<div id="header">
-</div>
-<div id="content">
-    <div class="egg">
-        <ul class="eggList">
-            <p class="hammer" id="hammer">锤子</p>
+<div class="container">
+    <div class="well">
+        <div class="egg">
+            <!--<ul class="eggList">-->
+                <p class="hammer" id="hammer">锤子</p>
+                <p class="resultTip" id="resultTip"><b id="result"></b></p>
+                <div class="pose"><span></span><sup></sup></div>
+            <!--</ul>-->
+        </div>
+    </div>
 
-            <p class="resultTip" id="resultTip"><b id="result"></b></p>
-            <li><span>1</span><sup></sup></li>
-            <li><span>2</span><sup></sup></li>
-            <li><span>3</span><sup></sup></li>
-        </ul>
+    <div class="row" style="margin-top: 50px;">
+            <div class="col-sm-6 col-xs-12">
+                <div class="panel panel-info">
+                    <div class="panel-heading">奖项设置</div>
+                    <div class="panel-body">
+                        <ol class="prize_set">
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-xs-12">
+                <div class="panel panel-danger">
+                    <div class="panel-heading">中奖情况</div>
+                    <div class="panel-body">
+                        <ol class="prize_result">
+                        </ol>
+                    </div>
+                </div>
+            </div>
     </div>
 </div>
 <script type="text/javascript" src="../javascripts/jquery.min.js"></script>
 <script type="text/javascript">
 
-    function lalala () {
+    $(function () {
+        init();
 
-        var prize_arr = [
-            {id: 1, prize: '平板电脑', v: 3},
-            {id: 2, prize: '数码相机', v: 5},
-            {id: 3, prize: '音箱设备', v: 10},
-            {id: 4, prize: '4G优盘', v: 12},
-            {id: 5, prize: 'Q币10元', v: 20},
-            {id: 6, prize: '下次没准就能中哦', v: 50}
-        ];
-
-        var size = prize_arr.length;
-        var index = Math.floor(Math.random() * size + 1) % size;
-        var prize = prize_arr[index];
-
-        var res = {};
-        res['msg'] = prize.id;
-        res['prize'] = prize.prize;
-
-        return res;
-    }
-
-
-
-    function eggClick(obj) {
-        var _this = obj;
-
-        var res = lalala();
-
-
-        if (_this.hasClass("curr")) {
-            alert("蛋都碎了，别砸了！刷新再来.");
-            return false;
+        function init() {
+            getPrizeSet();
+//            getPrizeResult();
         }
-        //_this.unbind('click');
-        $(".hammer").css({"top": _this.position().top - 55, "left": _this.position().left + 185});
-        $(".hammer").animate({
-                    "top": _this.position().top - 25,
-                    "left": _this.position().left + 125
-                }, 30, function () {
-                    _this.addClass("curr"); //蛋碎效果
-                    _this.find("sup").show(); //金花四溅
-                    $(".hammer").hide();
-                    $('.resultTip').css({
-                        display: 'block',
-                        top: '100px',
-                        left: _this.position().left + 45,
-                        opacity: 0
-                    }).animate({top: '50px', opacity: 1}, 300, function () {
-                        if (res.msg == 1) {
-                            $("#result").html("恭喜，您中得" + res.prize + "!");
-                        } else {
-                            $("#result").html("很遗憾,您没能中奖!");
-                        }
-                    });
-                }
-        );
-    }
+
+        function lalala () {
+
+            var prize_arr = [
+                {id: 1, prize: '平板电脑', v: 3},
+                {id: 2, prize: '数码相机', v: 5},
+                {id: 3, prize: '音箱设备', v: 10},
+                {id: 4, prize: '4G优盘', v: 12},
+                {id: 5, prize: 'Q币10元', v: 20},
+                {id: 6, prize: '下次没准就能中哦', v: 50}
+            ];
+
+            var size = prize_arr.length;
+            var index = Math.floor(Math.random() * size + 1) % size;
+            var prize = prize_arr[index];
+
+            var res = {};
+            res['msg'] = prize.id;
+            res['prize'] = prize.prize;
+
+            return res;
+        }
 
 
-    $(".eggList li").click(function () {
-        $(this).children("span").hide();
-        eggClick($(this));
+
+        function eggClick(obj) {
+            var _this = obj;
+
+            var res = lalala();
+
+
+            if (_this.hasClass("curr")) {
+                alert("蛋都碎了，别砸了！刷新再来.");
+                return false;
+            }
+            //_this.unbind('click');
+            $(".hammer").css({"top": _this.position().top - 55, "left": _this.position().left + 185});
+            $(".hammer").animate({
+                        "top": _this.position().top - 25,
+                        "left": _this.position().left + 125
+                    }, 30, function () {
+                        _this.addClass("curr"); //蛋碎效果
+                        _this.find("sup").show(); //金花四溅
+                        $(".hammer").hide();
+                        $('.resultTip').css({
+                            display: 'block',
+                            top: '100px',
+                            left: _this.position().left + 45,
+                            opacity: 0
+                        }).animate({top: '50px', opacity: 1}, 300, function () {
+                            if (res.msg == 1) {
+                                $("#result").html("恭喜，您中得" + res.prize + "!");
+                            } else {
+                                $("#result").html("很遗憾,您没能中奖!");
+                            }
+                        });
+                    }
+            );
+        }
+
+
+        $(".eggList li").click(function () {
+            $(this).children("span").hide();
+            eggClick($(this));
+        });
+
+        $(".eggList li").hover(function () {
+            var posL = $(this).position().left + $(this).width();
+            $("#hammer").show().css('left', posL);
+        })
+
+        function getPrizeSet() {
+            $.getJSON('/api/prize_info/name/zajindan', function (data) {
+                $(data).each(function (index) {
+                    if(index < $(data).length-1){
+                        $(".prize_set").append("<li>" + data[index].content + ", 数量:" + data[index].limits + "。</li>");
+                    }
+                });
+            });
+        }
+
     });
 
-    $(".eggList li").hover(function () {
-        var posL = $(this).position().left + $(this).width();
-        $("#hammer").show().css('left', posL);
-    })
 
 
 </script>

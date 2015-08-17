@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>add a lesson</title>
+    <link href="../../font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="../../stylesheets/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .input-group{
+            margin-top: 20px;
+        }
+
+        label{
+            font-size: 15px;
+            font-family: FontAwesome;
+        }
+
+        .switch-input {
+            display: none;
+        }
+        .switch-label {
+            position: relative;
+            display: inline-block;
+            min-width: 50px;
+            cursor: pointer;
+            font-weight: 500;
+            text-align: left;
+            margin: 16px;
+            padding: 16px 0 16px 44px;
+        }
+        .switch-label:before,
+        .switch-label:after {
+            content: "";
+            position: absolute;
+            margin: 0;
+            outline: 0;
+            top: 50%;
+            -ms-transform: translate(0, -50%);
+            -webkit-transform: translate(0, -50%);
+            transform: translate(0, -50%);
+            -webkit-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+        }
+        .switch-label:before {
+            left: 1px;
+            width: 34px;
+            height: 14px;
+            background-color: #9e9e9e;
+            border-radius: 8px;
+        }
+        .switch-label:after {
+            left: 0;
+            width: 20px;
+            height: 20px;
+            background-color: #fafafa;
+            border-radius: 50%;
+            box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.14), 0 2px 2px 0 rgba(0, 0, 0, 0.098), 0 1px 5px 0 rgba(0, 0, 0, 0.084);
+        }
+        .switch-label .toggle--on {
+            display: none;
+        }
+        .switch-label .toggle--off {
+            display: inline-block;
+        }
+        .switch-input:checked + .switch-label:before {
+            background-color: #a5d6a7;
+        }
+        .switch-input:checked + .switch-label:after {
+            background-color: #4caf50;
+            -ms-transform: translate(80%, -50%);
+            -webkit-transform: translate(80%, -50%);
+            transform: translate(80%, -50%);
+        }
+        .switch-input:checked + .switch-label .toggle--on {
+            display: inline-block;
+        }
+        .switch-input:checked + .switch-label .toggle--off {
+            display: none;
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div class="input-group">
+        <span class="input-group-addon" id="title">标题</span>
+        <input type="text" class="form-control" required="true" aria-describedby="basic-addon2" />
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon" id="catalog">分类</span>
+        <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-info active">
+                <input type="radio" name="options" id="option1" autocomplete="off" checked> 需求分析
+            </label>
+            <label class="btn btn-info">
+                <input type="radio" name="options" id="option2" autocomplete="off"> 设计
+            </label>
+            <label class="btn btn-info">
+                <input type="radio" name="options" id="option3" autocomplete="off"> 开发
+            </label>
+            <label class="btn btn-info">
+                <input type="radio" name="options" id="option4" autocomplete="off"> 联调
+            </label>
+            <label class="btn btn-info">
+                <input type="radio" name="options" id="option5" autocomplete="off"> 测试
+            </label>
+            <label class="btn btn-info">
+                <input type="radio" name="options" id="option6" autocomplete="off"> 上线
+            </label>
+            <label class="btn btn-info">
+                <input type="radio" name="options" id="option7" autocomplete="off"> 运维
+            </label>
+            <label class="btn btn-info">
+                <input type="radio" name="options" id="option8" autocomplete="off"> 其他
+            </label>
+        </div>
+    </div>
+    <div class="input-group">
+            <span class="input-group-addon" id="author">作者</span>
+            <input type="text" class="form-control" required="true" aria-describedby="basic-addon2"/>
+
+            <span class="input-group-addon" id="department" style="margin-left: 10px;">来源</span>
+            <select class="form-control">
+                <option id="dep0" >请选择</option>
+                <option id="dep1" value="移动应用事业部-开发组">移动应用事业部-开发组</option>
+                <option id="dep2" value="移动应用事业部-测试组">移动应用事业部-测试组</option>
+                <option id="dep3" value="移动应用事业部-运维组">移动应用事业部-运维组</option>
+                <option id="dep4" value="移动应用事业部-运营组">移动应用事业部-运营组</option>
+                <option id="dep5" value="移动应用事业部-解决方案组">移动应用事业部-解决方案组</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <div class="swith">
+                <input type="checkbox" id="id-name--1" name="set-name" class="switch-input">
+                <label for="id-name--1" class="switch-label"><span class="toggle--on">出版</span><span class="toggle--off">不出版</span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="input-group">
+        <h4>问题描述:</h4>
+        <textarea  id="description" required="true" name="area1" cols="40"></textarea>
+    </div>
+    <div class="input-group">
+        <h4>问题原因:</h4>
+        <textarea  id="reason" required="true" name="area1" cols="80"></textarea>
+    </div>
+    <div class="input-group">
+        <h4>解决办法:</h4>
+        <textarea  id="solution" required="true" name="area1" style="width: 100%;"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-default">保存</button>
+</div>
+
+</body>
+<script src="../../javascripts/jquery.min.js"></script>
+<script src="../../javascripts/bootstrap.min.js"></script>
+<script src="../../javascripts/nicEdit.js"></script>
+<script type="text/javascript">
+    bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
+</script>
+</html>
