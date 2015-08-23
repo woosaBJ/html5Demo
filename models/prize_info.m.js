@@ -4,7 +4,7 @@
 var Sequelize = require('sequelize');
 var db = require('./sequelize/database');
 
-module.exports = db.define('PrizeInfo', {
+module.exports = db.define('prizeInfo', {
         id: {
             type: Sequelize.INTEGER,
             primaryKey: true,
@@ -16,7 +16,8 @@ module.exports = db.define('PrizeInfo', {
         limits: Sequelize.INTEGER,
         status: Sequelize.INTEGER,
         published_at: Sequelize.DATE,
-        expired_at: Sequelize.DATE
+        expired_at: Sequelize.DATE,
+        order: Sequelize.INTEGER
     }, {
         underscored: true,
         tableName: 'prize_info'

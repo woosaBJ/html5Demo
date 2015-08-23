@@ -18,6 +18,7 @@ module.exports = {
     listPrizeInfos: listPrizeInfos,
     updatePrizeInfo: updatePrizeInfo,
     deletePrizeInfoById: deletePrizeInfoById,
+    getPrizeInfoByOrder: getPrizeInfoByOrder
 };
 
 function getPrizeInfoById(id) {
@@ -69,4 +70,8 @@ function updatePrizeInfo(prizeInfo) {
 
 function deletePrizeInfoById(prizeInfoId) {
     return Q.all([prizeInfoDao.deleteById(prizeInfoId, interestDao.deleteInterestByPrizeInfoId(prizeInfoId))]);
+}
+
+function getPrizeInfoByOrder(prize){
+    return prizeInfoDao.findByOrder(prize);
 }

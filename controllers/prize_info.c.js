@@ -14,7 +14,8 @@ module.exports = {
     queryPrizeInfos: queryPrizeInfos,
     updatePrizeInfo: updatePrizeInfo,
     deletePrizeInfo: deletePrizeInfo,
-    saveAsPrizeInfo: saveAsPrizeInfo
+    saveAsPrizeInfo: saveAsPrizeInfo,
+    getPrizeByOrder: getPrizeByOrder
 };
 
 
@@ -112,6 +113,23 @@ function saveAsPrizeInfo(req, res, next) {
         .saveAs(prizeInfoId, prizeInfo)
         .then(function (result) {
             res.json(result);
+        })
+        .catch(function (err) {
+            next(err);
+        });
+}
+
+function getPrizeByOrder(req, res, next) {
+    var prizeName = req.params.name;
+    var prizeOrder = req.params.order;
+    var prize = {
+        "prize_name": prizeName,
+        "prize_order": prizeOrder
+    }
+    logger.info(prize);
+    prizeInfoService.getPrizeInfoByOrder(prize)
+        .then(function (prizeInfos) {
+            res.json(prizeInfos);
         })
         .catch(function (err) {
             next(err);

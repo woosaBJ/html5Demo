@@ -21,6 +21,18 @@
                 <div class="pose"><span></span><sup></sup></div>
             <!--</ul>-->
         </div>
+        <div id="data" hidden class="clearfix" style="margin-top: 20px;">
+            <div id="remind" class="alert alert-danger" role="alert"></div>
+            <div class="row">
+                <div class="col-xs-8 col-sm-4">
+                    <input type="text" placeholder="请输入手机号" class="form-control" id="mobile" required="true" />
+                </div>
+                <div class="col-xs-4 col-sm-8">
+                    <button class="btn btn-success" id="receive">领取</button>
+                </div>
+            </div>
+            <div id="warn" class="alert alert-danger" role="alert" hidden style="margin-top: 20px;"></div>
+        </div>
     </div>
 
     <div class="row" style="margin-top: 50px;">
@@ -53,29 +65,34 @@
 
         function init() {
             getPrizeSet();
-//            getPrizeResult();
+            getPrizeResult();
         }
+
+        var prizeSet = {};
+        var prize = {};
 
         function lalala () {
 
-            var prize_arr = [
-                {id: 1, prize: '平板电脑', v: 3},
-                {id: 2, prize: '数码相机', v: 5},
-                {id: 3, prize: '音箱设备', v: 10},
-                {id: 4, prize: '4G优盘', v: 12},
-                {id: 5, prize: 'Q币10元', v: 20},
-                {id: 6, prize: '下次没准就能中哦', v: 50}
-            ];
+//            var prize_arr = [
+//                {id: 1, prize: '平板电脑', v: 3},
+//                {id: 2, prize: '数码相机', v: 5},
+//                {id: 3, prize: '音箱设备', v: 10},
+//                {id: 4, prize: '4G优盘', v: 12},
+//                {id: 5, prize: 'Q币10元', v: 20},
+//                {id: 6, prize: '下次没准就能中哦', v: 50}
+//            ];
 
-            var size = prize_arr.length;
+            var size = prizeSet.length;
             var index = Math.floor(Math.random() * size + 1) % size;
-            var prize = prize_arr[index];
+            console.log(index);
+            prize = prizeSet[index];
 
             var res = {};
-            res['msg'] = prize.id;
-            res['prize'] = prize.prize;
-
+            res['msg'] = prize.order;
+            res['prize'] = prize.content;
+            console.log(res);
             return res;
+
         }
 
 
@@ -91,10 +108,10 @@
                 return false;
             }
             //_this.unbind('click');
-            $(".hammer").css({"top": _this.position().top - 55, "left": _this.position().left + 185});
+            $(".hammer").css({"top": _this.position().top - 55, "left": _this.position().left + 485});
             $(".hammer").animate({
                         "top": _this.position().top - 25,
-                        "left": _this.position().left + 125
+                        "left": _this.position().left + 25
                     }, 30, function () {
                         _this.addClass("curr"); //蛋碎效果
                         _this.find("sup").show(); //金花四溅
@@ -105,8 +122,11 @@
                             left: _this.position().left + 45,
                             opacity: 0
                         }).animate({top: '50px', opacity: 1}, 300, function () {
-                            if (res.msg == 1) {
+                            if (res.msg != 6) {
                                 $("#result").html("恭喜，您中得" + res.prize + "!");
+                                $('#remind').append('恭喜您中了' + prize.description + ', 奖品为:<strong>' + prize.content + '</strong>, 请输入手机号领奖！');
+                                $('#data').show();
+
                             } else {
                                 $("#result").html("很遗憾,您没能中奖!");
                             }
@@ -115,23 +135,72 @@
             );
         }
 
-
-        $(".eggList li").click(function () {
-            $(this).children("span").hide();
+        $(".pose").click(function () {
+            $("span").hide();
             eggClick($(this));
         });
 
-        $(".eggList li").hover(function () {
+        $(".pose").hover(function () {
             var posL = $(this).position().left + $(this).width();
             $("#hammer").show().css('left', posL);
-        })
+        });
+
+        $("#hammer").show().css('left', $('.pose').position().left + $('.pose').width());
+
 
         function getPrizeSet() {
             $.getJSON('/api/prize_info/name/zajindan', function (data) {
+                prizeSet = data;
                 $(data).each(function (index) {
                     if(index < $(data).length-1){
-                        $(".prize_set").append("<li>" + data[index].content + ", 数量:" + data[index].limits + "。</li>");
+                        $(".prize_set").append("<li>" + data[index].description + ":" + data[index].content + ", 数量:" + data[index].limits + "。</li>");
                     }
+                });
+            });
+        }
+
+        $('#receive').click(function () {
+            $('#warn').hide();
+
+            if($("#mobile").val()==""){
+//                console.log("手机号为空")
+                $('#warn').html('');
+                $('#warn').append('请输入手机号领奖!');
+                $('#warn').show();
+                return;
+            }
+            if(!/^1\d{10}$/.test($("#mobile").val())){
+//                console.log("手机号不合法")
+                $('#warn').html('');
+                $('#warn').append('请输入合法的手机号!');
+                $('#warn').show();
+                return;
+            }
+            $('#receive').attr('disabled', true);
+            $.ajax({
+                url: '/api/win_info/',
+                method: 'POST',
+                data: {
+                    user_id: $('#mobile').val(),
+                    prize_id: prize.id,
+                    prize_name: prize.name,
+                    is_get: 0
+                }
+            }).done(function() {
+                $('#data').hide();
+                getPrizeResult();
+            });
+            return false;
+        });
+
+        function getPrizeResult() {
+            $.getJSON('/api/win_info/prize_name/zajindan', function (data) {
+                $(".prize_result").html('');
+                $(data).each(function (index) {
+                    $.getJSON("/api/prize_info/" + data[index].prize_id, function (priz) {
+//                        console.log(data[index].prize_id);
+                        $(".prize_result").append("<li>用户" + data[index].user_id.substring(0, 3) +"****" + data[index].user_id.substring(7, 11) + "获得" + priz.content + "</li>");
+                    });
                 });
             });
         }
@@ -145,7 +214,7 @@
 <div id="footer">
 </div>
 <p id="stat">
-    <script type="text/javascript" src="http://js.tongji.linezing.com/1870888/tongji.js"></script>
+    <!--<script type="text/javascript" src="http://js.tongji.linezing.com/1870888/tongji.js"></script>-->
 </p>
 </body>
 </html>

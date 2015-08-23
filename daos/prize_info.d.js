@@ -7,7 +7,7 @@ var Q = require('q');
 var logger = require('../logger').dao;
 var errors = require('../errors');
 
-var PrizeInfo = require('../models/prize_info.m');
+var prizeInfo = require('../models/prize_info.m');
 
 
 module.exports = {
@@ -16,7 +16,8 @@ module.exports = {
     findById: findById,
     findByName: findByName,
     deleteById: deleteById,
-    update: update
+    update: update,
+    findByOrder: findByOrder
 };
 
 
@@ -25,7 +26,7 @@ function create(prizeInfo) {
     if (prizeInfo.is_published) {
         prizeInfo.published_at = new Date();
     }
-    PrizeInfo
+    prizeInfo
         .find({
             where: {
                 name: prizeInfo.name
@@ -33,9 +34,9 @@ function create(prizeInfo) {
         })
         .success(function (sameNamePrizeInfo) {
             if (sameNamePrizeInfo) {
-                deferred.reject(new errors.BadRequestError('PrizeInfo ' + prizeInfo.name + ' already exists!'));
+                deferred.reject(new errors.BadRequestError('prizeInfo ' + prizeInfo.name + ' already exists!'));
             } else {
-                PrizeInfo
+                prizeInfo
                     .create(prizeInfo)
                     .success(function (result) {
                         deferred.resolve(result.values);
@@ -53,7 +54,7 @@ function create(prizeInfo) {
 
 function list() {
     var deferred = Q.defer();
-    PrizeInfo
+    prizeInfo
         .findAll()
         .success(function (prizeInfos) {
             var result = [];
@@ -81,11 +82,11 @@ function update(prizeInfo) {
             delete prizeInfo.published_at;
         }
     }
-    PrizeInfo
+    prizeInfo
         .update(prizeInfo, {id: prizeInfo.id})
         .success(function (affectedRows) {
             if (affectedRows === 0) {
-                deferred.reject(new errors.NotFoundError('PrizeInfo ' + prizeInfo.id + ' not found!'));
+                deferred.reject(new errors.NotFoundError('prizeInfo ' + prizeInfo.id + ' not found!'));
             } else {
                 deferred.resolve();
             }
@@ -97,12 +98,12 @@ function update(prizeInfo) {
 }
 
 function findById(prizeInfoId) {
-    return PrizeInfo.findById(prizeInfoId);
+    return prizeInfo.findById(prizeInfoId);
 }
 
 function findByName(prizeInfoName) {
     logger.info(prizeInfoName);
-    return PrizeInfo.findAll({
+    return prizeInfo.findAll({
         where: {
             name: prizeInfoName
         }
@@ -111,7 +112,7 @@ function findByName(prizeInfoName) {
 
 function deleteById(prizeInfoId) {
     var deferred = Q.defer();
-    PrizeInfo
+    prizeInfo
         .destroy({
             id: prizeInfoId
         })
@@ -122,5 +123,14 @@ function deleteById(prizeInfoId) {
             deferred.reject(new errors.DatabaseError(err.name + ': ' + err.message));
         });
     return deferred.promise;
+}
+
+function findByOrder(prize){
+    return prizeInfo.findAll({
+        where: {
+            name: prize.prize_name,
+            order: prize.prize_order
+        }
+    });
 }
 

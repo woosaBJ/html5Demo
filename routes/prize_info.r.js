@@ -17,9 +17,16 @@ module.exports = function (h5Demo) {
     h5Demo.get('/api/prize_info/:id', prizeInfoCtrl.getPrizeInfo);
 
     /**
-     * 查看单个记录
+     * 查看某抽奖类型的奖项设置
      */
     h5Demo.get('/api/prize_info/name/:name', prizeInfoCtrl.getPrizeInfos);
+
+    /**
+     * 查看某抽奖类型的第n个奖项设置
+     */
+    h5Demo.get('/api/prize_info/name/:name/order/:order', prizeInfoCtrl.getPrizeByOrder);
+
+
 
     ///**
     // * 查看所有报表
