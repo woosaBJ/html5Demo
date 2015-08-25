@@ -78,10 +78,6 @@
             display: none;
         }
 
-        .btn-group input:checked + label {
-
-        }
-
 
     </style>
 </head>
@@ -89,62 +85,62 @@
 <div class="container">
 
     <div class="input-group">
-        <span class="input-group-addon" id="title">标题</span>
-        <input type="text" class="form-control" required="true" aria-describedby="basic-addon2" />
+        <span class="input-group-addon">标题</span>
+        <input id="title" type="text" class="form-control" required="true" aria-describedby="basic-addon2" />
     </div>
     <div class="input-group">
-        <span class="input-group-addon" id="author">作者</span>
-        <input type="text" class="form-control" required="true" aria-describedby="basic-addon2"/>
-        <span class="input-group-addon" id="department">来源</span>
-        <select class="form-control" style="border-radius: 0px;-webkit-border-radius: 0px;-webkit-appearance: none;">
-            <option id="dep0" >请选择</option>
-            <option id="dep1" value="移动应用事业部-开发组">移动应用事业部-开发组</option>
-            <option id="dep2" value="移动应用事业部-测试组">移动应用事业部-测试组</option>
-            <option id="dep3" value="移动应用事业部-运维组">移动应用事业部-运维组</option>
-            <option id="dep4" value="移动应用事业部-运营组">移动应用事业部-运营组</option>
-            <option id="dep5" value="移动应用事业部-解决方案组">移动应用事业部-解决方案组</option>
+        <span class="input-group-addon" >作者</span>
+        <input id="author" type="text" class="form-control" required="true" aria-describedby="basic-addon2"/>
+        <span class="input-group-addon" >来源</span>
+        <select id="department" class="form-control" style="border-radius: 0px;-webkit-border-radius: 0px;-webkit-appearance: none;">
+            <option value="--">请选择</option>
+            <option value="移动应用事业部-开发组">移动应用事业部-开发组</option>
+            <option value="移动应用事业部-测试组">移动应用事业部-测试组</option>
+            <option value="移动应用事业部-运维组">移动应用事业部-运维组</option>
+            <option value="移动应用事业部-运营组">移动应用事业部-运营组</option>
+            <option value="移动应用事业部-解决方案组">移动应用事业部-解决方案组</option>
         </select>
     </div>
     <div class="input-group" style="margin-bottom: 20px">
-        <span class="input-group-addon" id="catalog">分类</span>
-        <div class="btn-group" data-toggle="buttons">
+        <span class="input-group-addon" >分类</span>
+        <div class="btn-group" data-toggle="buttons" id="catalog">
             <label class="btn btn-info active" style="border-radius: 0px;-webkit-border-radius: 0px;-webkit-appearance: none;">
-                <input type="radio" value="需求分析" autocomplete="off" checked> 需求分析
+                <input type="radio" name="catalog" value="需求分析" autocomplete="off" checked> 需求分析
             </label>
             <label class="btn btn-info">
-                <input type="radio" value="设计" autocomplete="off"> 设计
+                <input type="radio" name="catalog" value="设计" autocomplete="off"> 设计
             </label>
             <label class="btn btn-info">
-                <input type="radio" value="开发" autocomplete="off"> 开发
+                <input type="radio" name="catalog" value="开发" autocomplete="off"> 开发
             </label>
             <label class="btn btn-info">
-                <input type="radio" value="联调" autocomplete="off"> 联调
+                <input type="radio" name="catalog" value="联调" autocomplete="off"> 联调
             </label>
             <label class="btn btn-info">
-                <input type="radio" value="测试" autocomplete="off"> 测试
+                <input type="radio" name="catalog" value="测试" autocomplete="off"> 测试
             </label>
             <label class="btn btn-info">
-                <input type="radio" value="上线" autocomplete="off"> 上线
+                <input type="radio" name="catalog" value="上线" autocomplete="off"> 上线
             </label>
             <label class="btn btn-info">
-                <input type="radio" value="运维" autocomplete="off"> 运维
+                <input type="radio" name="catalog" value="运维" autocomplete="off"> 运维
             </label>
-            <label class="btn btn-info border-radius">
-                <input type="radio" value="其他" autocomplete="off"> 其他
+            <label class="btn btn-info">
+                <input type="radio" name="catalog" value="其他" autocomplete="off"> 其他
             </label>
         </div>
     </div>
 
     <span class="input-group-addon" style="width:30px;">问题描述</span>
     <textarea id="description" required="true" class="form-control" rows="3" style="margin-bottom: 20px"></textarea>
-    <span class="input-group-addon" style="width:30px;">问题原因:</span>
+    <span class="input-group-addon" style="width:30px;">问题原因</span>
     <textarea  id="reason" required="true" class="form-control" rows="3" style="margin-bottom: 20px"></textarea>
-    <span class="input-group-addon" style="width:30px;">解决办法:</span>
+    <span class="input-group-addon" style="width:30px;">解决办法</span>
     <textarea  id="solution" required="true" class="form-control" rows="3"></textarea>
 
     <div class="switch">
-        <input type="checkbox" id="is-published" name="set-name" class="switch-input">
-        <label for="is-published" class="switch-label "><span class="toggle--on" style="width:80px;">出版</span><span class="toggle--off" style="width:80px;">不出版</span>
+        <input type="checkbox" id="is-published" name="is_published" class="switch-input">
+        <label for="is-published" class="switch-label"><span class="toggle--on" style="width:80px;">出版</span><span class="toggle--off" style="width:80px;">不出版</span>
         </label>
         <button type="submit" class="btn btn-primary" id="save">保存</button>
         <button type="submit" class="btn btn-danger">重置</button>
@@ -158,8 +154,8 @@
 <script src="../../javascripts/bootstrap.min.js"></script>
 <script type="text/javascript">
     $(function(){
+        $("#is-published").val("0");
         $("#save").click(function () {
-
             $.ajax({
                 url: '/api/lessons/',
                 method: 'POST',
@@ -169,15 +165,24 @@
                     reason: $('#reason').val(),
                     solution:  $('#solution').val(),
                     department:  $('#department').val(),
-                    catalog:  $('#catalog').val(),
+                    catalog:  $('input[type="radio"][name="catalog"]:checked').val(),
                     author:  $('#author').val(),
-                    is_published: $('#is-published').val(),
+                    is_published: $('#is-published').val()
                 }
             }).done(function() {
-
+                window.location.href="lessonsList.html";
             });
             return false;
 
+        });
+
+        $(".switch-input").click(function(){
+            if($(".toggle--off").is(":visible")==false){
+                $("#is-published").val("1");
+            }else{
+                $("#is-published").val("0");
+            }
+            console.log("switch-input click to " + $("#is-published").val());
         });
 
     });
