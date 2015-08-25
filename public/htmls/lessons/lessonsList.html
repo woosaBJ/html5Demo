@@ -62,13 +62,6 @@
 <body>
 <section class="owBack">
     <div class="container-fluid owWrap">
-
-        <div class="owUnit" id="111">
-            <h3>Blog Post Title</h3>
-            <p>Lorem ipsum dolor sit amet consectualr. Lorem ipsum dolortus, consectetur sit amet eros quis, eleifend dictum sapien. sit amet consectua ipsum dolor sit amet consectualr. Lorem ipsum dolor sit amet consectualr. Loremtetur sit amet eros quis,
-                eleifend dictum sapien. Fusce vel est ma ipsum.</p>
-        </div>
-        <!--/.owUnit-->
     </div>
     <!--/.container-->
 </section>
@@ -84,17 +77,15 @@
         function getLessonsList() {
             $.getJSON('/api/lessons/query/all/', function (data) {
                 $(data).each(function (index) {
-                    $(".container-fluid").append("<div class=\"owUnit\"><h3 href=\"viewLesson.html\">" +  data[index].title + "</h3><p>" + data[index].description +"</p></div>");
+                    $(".container-fluid").append("<div class=\"owUnit\" id=\"" + data[index].id + "\"><h3>" +  data[index].title + "</h3><p>" + data[index].description +"</p></div>");
+                });
+                $(".owUnit").click(function () {
+                    var id = $(".owUnit").attr("id");
+                    console.log(id);
+                    window.location.href="viewLesson.html?id="+id;
                 });
             });
         }
-
-        $(".owUnit").click(function () {
-            var id = $(".owUnit").attr("id");
-            console.log(id);
-            window.location.href="viewLesson.html?id="+id;
-        });
-
     });
 
 </script>

@@ -6,7 +6,8 @@ scp -r html5Demo/public/htmls/guaguaka.html mpsp@10.10.67.132:/home/mpsp/woosa/h
 scp -r controllers daos models public routes services  mpsp@10.10.67.132:/home/mpsp/woosa/html5Demo/
 
 scp -r public/htmls/lessons mpsp@10.10.67.132:/home/mpsp/woosa/html5Demo/public/htmls/
-
+sudo /Applications/XAMPP/xamppfiles/bin/mysql.server start
+sudo /usr/local/bin/mysql.server start
 
 
 

@@ -5,6 +5,14 @@
     <title></title>
 </head>
 <body>
+    <section>
+        <h1>Famous Cities</h1>
+        <article>
+            <h2>London</h2>
+            <p>London is the capital city of England. It is the most populous city in the United Kingdom,
+                with a metropolitan area of over 13 million inhabitants.</p>
+        </article>
+    </section>
 
 </body>
 
@@ -16,8 +24,11 @@
 <script>
     $(function(){
         var hrefArr = window.location.href.split("?");
-        console.log(hrefArr);
-        console.log(hrefArr[1]);
+        var params = hrefArr[1].split("=");
+        var id = params[1];
+        $.getJSON('/api/lessons/query/id/' + id, function (data) {
+            console.log(data);
+        });
     });
 </script>
 </html>

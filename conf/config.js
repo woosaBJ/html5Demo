@@ -3,15 +3,15 @@ var conf = {
 
     MYSQL: {
         PORT: 3306,
-        DB: 'vc',
-        PASSWORD: 'wusha',
-        HOST: '10.10.38.211',
-        USER: 'wusha',
+        //DB: 'vc',
+        //PASSWORD: 'wusha',
+        //HOST: '10.10.38.211',
+        //USER: 'wusha',
 
-        //USER: 'root',
-        //HOST: 'localhost',
-        //PASSWORD: '',
-        //DB: 'woosa',
+        USER: 'root',
+        HOST: 'localhost',
+        PASSWORD: '',
+        DB: 'woosa',
 
         LOGGING: false
     },
