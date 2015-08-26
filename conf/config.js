@@ -3,6 +3,7 @@ var conf = {
 
     MYSQL: {
         PORT: 3306,
+
         //DB: 'vc',
         //PASSWORD: 'wusha',
         //HOST: '10.10.38.211',
