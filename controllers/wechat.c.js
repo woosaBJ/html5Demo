@@ -12,5 +12,7 @@ module.exports = {
 };
 
 function getToken(req, res, next){
-    weChatService.getAccessToken(req);
+    weChatService.getAccessToken(req).then(function(data) {
+       res.json(data);
+    });
 }
