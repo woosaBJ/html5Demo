@@ -1,5 +1,5 @@
 var conf = {
-    SERVER_PORT: 8083,
+    SERVER_PORT: 8016,
 
     MYSQL: {
         PORT: 3306,

@@ -7,9 +7,14 @@ var wechatCtrl = require('../controllers/wechat.c');
 module.exports = function (h5Demo) {
 
     /**
-     * 插入记录
+     * 获取access_token
      */
     h5Demo.get('/api/we_chat/', wechatCtrl.getToken);
+
+    /**
+     * 接收微信token验证消息
+     */
+    h5Demo.get('/api/we_chat/verify/', wechatCtrl.verifyToken);
 
     ///**
     // * 查看单个记录

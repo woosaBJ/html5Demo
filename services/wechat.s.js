@@ -7,10 +7,13 @@ var request = require('request');
 
 var logger = require('../logger').service;
 var errors = require('../errors');
+var cache = require('memory-cache');
+var sign = require('../utils/sign');
 
 
 module.exports = {
-    getAccessToken: getAccessToken
+    getAccessToken: getAccessToken,
+    verifyAccessToken: verifyAccessToken
 };
 
 function getAccessToken(req) {
@@ -23,9 +26,15 @@ function getAccessToken(req) {
     request({
             url: url,
             qs: {
+                //woosa 测试号
+                //grant_type: 'client_credential',
+                //appid: 'wxa6e80024f55c6353',
+                //secret: '0f8ebb3b60c7a9f6f0e687988a4c53d9'
+                //途说账号
                 grant_type: 'client_credential',
-                appid: 'wxa6e80024f55c6353',
-                secret: '0f8ebb3b60c7a9f6f0e687988a4c53d9'
+                appid: 'wx17cf203f039f106b',
+                secret: 'fdf5333145e5b1ac78cd3d617f26e17a'
+
             },
             json: true
         },
@@ -37,3 +46,27 @@ function getAccessToken(req) {
 
     return deferred.promise;
 }
+
+function verifyAccessToken(data){
+    var deferred = Q.defer();
+
+    var token = 'super88';
+    var paraArr = [token,data.timestamp,data.nonce];
+    var paraStr = sign.raw(paraArr);
+    var flag  = sign.verify(paraStr,data.signature);
+
+    if(flag){
+        body = {
+            'echostr': data.echostr
+        }
+    }else{
+        body = {
+            'echo':'error'
+        }
+    }
+    deferred.resolve(body);
+
+    return deferred.promise;
+}
+
+
