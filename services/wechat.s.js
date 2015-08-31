@@ -52,18 +52,18 @@ function verifyAccessToken(data){
 
     var token = 'super88';
     var paraArr = [token,data.timestamp,data.nonce];
-    var paraStr = sign.raw(paraArr);
+    paraArr = paraArr.sort();
+
+    var paraStr = sign.arrToStr(paraArr);
     var flag  = sign.verify(paraStr,data.signature);
 
     if(flag){
-        body = {
-            'echostr': data.echostr
-        }
+        body = data.echostr;
+
     }else{
-        body = {
-            'echo':'error'
-        }
+        body = 'error';
     }
+    logger.info(body);
     deferred.resolve(body);
 
     return deferred.promise;

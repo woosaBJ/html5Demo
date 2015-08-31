@@ -1,3 +1,5 @@
+var logger = require('../logger').sign;
+
 var createNonceStr = function () {
   return Math.random().toString(36).substr(2, 15);
 };
@@ -19,6 +21,14 @@ var raw = function (args) {
     string += '&' + k + '=' + newArgs[k];
   }
   string = string.substr(1);
+  return string;
+};
+
+var arrToStr = function (args) {
+  var string = '';
+  for (var k in args) {
+    string += args[k];
+  }
   return string;
 };
 
@@ -46,9 +56,12 @@ var sign = function (jsapi_ticket, url) {
 };
 
 var verify = function(signdata, signature){
+  logger.debug('signdata: ' + signdata);
+  logger.debug('signature: ' + signature);
   jsSHA = require('jssha');
   shaObj = new jsSHA(signdata, 'TEXT');
   var signValue = shaObj.getHash('SHA-1', 'HEX');
+  logger.debug('signValue: ' + signValue);
 
   if( signValue == signature ){
     return true;
@@ -59,6 +72,7 @@ var verify = function(signdata, signature){
 
 module.exports = {
   raw: raw,
+  arrToStr: arrToStr,
   sign: sign,
   verify: verify
 };

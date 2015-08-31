@@ -20,14 +20,14 @@ function getToken(req, res, next){
 
 function verifyToken(req, res, next){
     var body = {
-        "signature": req.params.signature,
-        "timestamp": req.params.timestamp,
-        "nonce": req.params.nonce,
-        "echostr": req.params.echostr
+        "signature": req.query.signature,
+        "timestamp": req.query.timestamp,
+        "nonce": req.query.nonce,
+        "echostr": req.query.echostr
     }
-
+    logger.info(body);
     weChatService.verifyAccessToken(body).then(function(data) {
-        res.json(data);
+        res.send(data);
     });
 
 }
