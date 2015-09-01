@@ -237,8 +237,8 @@
     $(function(){
         $('#token').click(function(){
             $.getJSON('/api/we_chat/', function (data) {
-                $("#token_view").text(data.access_token);
                 console.log(data);
+                $("#token_view").text(data);
             });
         });
     });

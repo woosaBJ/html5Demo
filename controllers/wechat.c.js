@@ -9,12 +9,15 @@ var weChatService = require('../services/wechat.s');
 
 module.exports = {
     getToken: getToken,
-    verifyToken: verifyToken
+    verifyToken: verifyToken,
+    getCode: getCode,
+    webGrant: webGrant,
+    //getUserInfo: getUserInfo
 };
 
 function getToken(req, res, next){
-    weChatService.getAccessToken(req).then(function(data) {
-       res.json(data);
+    weChatService.getAccessToken().then(function(data) {
+        res.send(data);
     });
 }
 
@@ -30,4 +33,27 @@ function verifyToken(req, res, next){
         res.send(data);
     });
 
+}
+
+//function getUserInfo(req, res, next){
+//    var scope = req.params.scope;
+//    weChatService.getUserInfo(scope).then(function(data) {
+//        res.send(data);
+//    });
+//}
+
+function getCode(req, res, next){
+    var scope = req.params.scope;
+    logger.debug(scope);
+    weChatService.getCode(scope).then(function(data) {
+        res.send(data);
+    });
+}
+
+function webGrant(req, res, next){
+    var code = req.query.code;
+    logger.debug(code);
+    weChatService.webGrant(code).then(function(data) {
+        res.send(data);
+    });
 }

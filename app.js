@@ -1,4 +1,5 @@
 global.config = require('./conf/config');
+global.cache = require('memory-cache');
 
 var express = require('express');
 var path = require('path');

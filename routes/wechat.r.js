@@ -16,6 +16,21 @@ module.exports = function (h5Demo) {
      */
     h5Demo.get('/api/we_chat/verify/', wechatCtrl.verifyToken);
 
+    /**
+     * 获取code
+     */
+    h5Demo.get('/api/we_chat/sns_api/:scope', wechatCtrl.getCode);
+
+    /**
+     * web网页授权
+     */
+    h5Demo.get('/api/we_chat/web_grant/', wechatCtrl.webGrant);
+
+    /**
+     * 获取用户openId
+     */
+    //h5Demo.get('/api/we_chat/sns_api/:scope', wechatCtrl.getUserInfo);
+
     ///**
     // * 查看单个记录
     // */
