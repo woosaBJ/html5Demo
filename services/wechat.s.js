@@ -112,7 +112,7 @@ function webGrant(code){
                 appid: we_chat.APPID,
                 secret: we_chat.SECRET,
                 code: code,
-                grant_type: authorization_code
+                grant_type: 'authorization_code'
             },
             json: true
         },
