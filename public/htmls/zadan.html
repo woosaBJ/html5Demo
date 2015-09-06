@@ -61,6 +61,12 @@
 <script type="text/javascript">
 
     $(function () {
+
+        var hrefArr = window.location.href.split("?");
+        var params = hrefArr[1].split("=");
+        var openid = params[1];
+        console.log(openid);
+
         init();
 
         function init() {
