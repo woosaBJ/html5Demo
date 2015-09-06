@@ -11,6 +11,7 @@ module.exports = db.define('lessons', {
             autoIncrement: true
         },
         user_id: Sequelize.STRING,
+        open_id: Sequelize.STRING,
         prize_id: Sequelize.INTEGER,
         prize_name: Sequelize.STRING,
         is_get: Sequelize.INTEGER,
