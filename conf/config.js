@@ -21,7 +21,7 @@ var conf = {
         APPID: 'wx17cf203f039f106b',
         SECRET: 'fdf5333145e5b1ac78cd3d617f26e17a',
         TOKEN: 'super88',
-        BACK_URL: 'http://106.120.215.238'
+        BACK_URL: 'http://oooops.ddns.net'
     },
 
 };
