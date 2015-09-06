@@ -52,8 +52,10 @@ function getCode(req, res, next){
 
 function webGrant(req, res, next){
     var code = req.query.code;
+    var webpage = req.params.webpage;
     logger.debug(code);
     weChatService.webGrant(code).then(function(data) {
-        res.send(data);
+        var openId = data.openid;
+        res.redirect('/htmls/'+ webpage + '.html?openid=' + openId);
     });
 }

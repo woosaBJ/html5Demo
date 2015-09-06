@@ -8,6 +8,8 @@ scp -r node_modules/jssha mpsp@10.10.67.132:/home/mpsp/woosa/html5Demo/node_modu
 scp -r node_modules/urlencode mpsp@10.10.67.132:/home/mpsp/woosa/html5Demo/node_modules/
 scp -r conf controllers daos models public routes services utils app.js mpsp@10.10.67.132:/home/mpsp/woosa/html5Demo/
 scp -r services controllers mpsp@10.10.67.132:/home/mpsp/woosa/html5Demo/
+scp -r public/htmls/guaguaka.html mpsp@10.10.67.132:/home/mpsp/woosa/html5Demo/public/htmls/
+
 
 
 

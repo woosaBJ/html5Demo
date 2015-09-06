@@ -82,6 +82,11 @@
 
     $(function () {
 
+        var hrefArr = window.location.href.split("?");
+        var params = hrefArr[1].split("=");
+        var openid = params[1];
+        console.log(openid);
+
 
         var imgs = ['../images/ggk_1.png', '../images/ggk_2.png', '../images/ggk_3.png', '../images/ggk_4.png', '../images/ggk_5.png', '../images/ggk_6.png'];
         var prize;
@@ -202,6 +207,8 @@
                 });
             });
         }
+
+
     });
 
 </script>

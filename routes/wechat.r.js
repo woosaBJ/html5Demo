@@ -24,7 +24,7 @@ module.exports = function (h5Demo) {
     /**
      * web网页授权
      */
-    h5Demo.get('/api/we_chat/web_grant/', wechatCtrl.webGrant);
+    h5Demo.get('/api/we_chat/web_grant/:webpage', wechatCtrl.webGrant);
 
     /**
      * 获取用户openId
