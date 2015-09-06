@@ -117,8 +117,22 @@ function webGrant(code){
             json: true
         },
         function (error, response, body) {
-            logger.debug(body);
-            deferred.resolve(body);
+            var url = 'https://api.weixin.qq.com/sns/userinfo';
+            request({
+                url: url,
+                qs: {
+                    //eg: ?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN
+                    access_token: body.access_token,
+                    openid: body.openid,
+                    lang: 'zh_CN',
+                },
+                json: true
+            },
+            function (error, response, body1) {
+                logger.debug(body1);
+                deferred.resolve(body1);
+            }
+            );
         }
     );
     return deferred.promise;
