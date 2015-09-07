@@ -64,8 +64,8 @@
             <div class="panel panel-danger">
                 <div class="panel-heading">中奖情况</div>
                 <div class="panel-body">
-                    <ol class="prize_result">
-                    </ol>
+                    <table id="prize_result" class="table table-striped">
+                    </table>
                 </div>
             </div>
         </div>
@@ -203,11 +203,12 @@
 
         function getPrizeResult() {
             $.getJSON('/api/win_info/prize_name/guaguaka', function (data) {
-                $(".prize_result").html('');
+                $("#prize_result").html('');
                 $(data).each(function (index) {
                     $.getJSON("/api/prize_info/" + data[index].prize_id, function (priz) {
 //                        console.log(data[index].prize_id);
-                        $(".prize_result").append("<li>用户" + data[index].user_id.substring(0, 3) +"****" + data[index].user_id.substring(7, 11) + "获得" + priz.content + "</li>");
+//                        $("#prize_result").append("<li>用户" + data[index].user_id.substring(0, 3) +"****" + data[index].user_id.substring(7, 11) + "获得" + priz.content + "</li>");
+                        $("#prize_result").append('<tr><td><img src=\"' + data[index].head_img_url +'\" class=\"img-circle\" style=\"width: 30px; height:30px;\"/></td><td>' + data[index].nick_name + '</td><td>' + priz.content + "</td></tr>");
                     });
                 });
             });
