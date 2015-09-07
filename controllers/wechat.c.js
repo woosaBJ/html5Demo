@@ -12,7 +12,6 @@ module.exports = {
     verifyToken: verifyToken,
     getCode: getCode,
     webGrant: webGrant,
-    //getUserInfo: getUserInfo
 };
 
 function getToken(req, res, next){
@@ -55,9 +54,17 @@ function webGrant(req, res, next){
     var webpage = req.params.webpage;
     logger.debug(code);
     weChatService.webGrant(code).then(function(data) {
-        var openId = data.openid;
-        var nickName = data.nickname;
-        var headImg = data.headimgurl;
-        res.redirect('/htmls/'+ webpage + '.html?openid=' + openId + '&nickname=' + nickName + '&headimgurl=' + headImg);
+        if(data.scope == 'snsapi_userinfo'){
+            var user = {
+                'openId': data.openid,
+                'accessToken': data.access_token
+            }
+            weChatService.getUserInfo(user).then(function(userinfo) {
+                res.redirect('/htmls/'+ webpage + '.html?openid=' + userinfo.openid + '&nickname=' + userinfo.nickname + '&headimgurl=' + userinfo.headimgurl);
+            });
+        }else{
+            res.redirect('/htmls/'+ webpage + '.html?openid=' + data.openid);
+        }
     });
 }
+

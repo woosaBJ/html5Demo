@@ -17,7 +17,7 @@ var sysCache = global.cache
 module.exports = {
     getAccessToken: getAccessToken,
     verifyAccessToken: verifyAccessToken,
-    //getUserInfo: getUserInfo,
+    getUserInfo: getUserInfo,
     getCode: getCode,
     webGrant: webGrant
 };
@@ -118,18 +118,11 @@ function webGrant(code){
         },
         function (error, response, body) {
             logger.debug(body);
-            if(code == 'snsapi_userinfo'){
-                var user = {
-                    'openid': body.openid,
-                    'access_token': body.access_token
-                }
-                getUserInfo(user);
-            }else{
-                deferred.resolve(body);
-                return deferred.promise;
-            }
+
+            deferred.resolve(body);
         }
     );
+    return deferred.promise;
 }
 
 function getUserInfo(user){
