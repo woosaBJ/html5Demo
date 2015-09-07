@@ -132,8 +132,8 @@ function getUserInfo(user){
             url: url,
             qs: {
                 //eg: ?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN
-                access_token: user.access_token,
-                openid: user.openid,
+                access_token: user.accessToken,
+                openid: user.openId,
                 lang: 'zh_CN'
             },
             json: true
