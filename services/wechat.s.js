@@ -118,6 +118,35 @@ function webGrant(code){
         },
         function (error, response, body) {
             logger.debug(body);
+            if(code == 'snsapi_userinfo'){
+                var user = {
+                    'openid': body.openid,
+                    'access_token': body.access_token
+                }
+                getUserInfo(user);
+            }else{
+                deferred.resolve(body);
+                return deferred.promise;
+            }
+        }
+    );
+}
+
+function getUserInfo(user){
+    var deferred = Q.defer();
+    var url = 'https://api.weixin.qq.com/sns/userinfo';
+    request({
+            url: url,
+            qs: {
+                //eg: ?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN
+                access_token: user.access_token,
+                openid: user.openid,
+                lang: 'zh_CN'
+            },
+            json: true
+        },
+        function (error, response, body) {
+            logger.debug(body);
             deferred.resolve(body);
         }
     );

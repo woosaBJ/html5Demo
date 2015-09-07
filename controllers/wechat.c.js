@@ -56,6 +56,8 @@ function webGrant(req, res, next){
     logger.debug(code);
     weChatService.webGrant(code).then(function(data) {
         var openId = data.openid;
-        res.redirect('/htmls/'+ webpage + '.html?openid=' + openId);
+        var nickName = data.nickname;
+        var headImg = data.headimgurl;
+        res.redirect('/htmls/'+ webpage + '.html?openid=' + openId + '&nickname=' + nickName + '&headimgurl=' + headImg);
     });
 }

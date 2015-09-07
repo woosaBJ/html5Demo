@@ -12,6 +12,8 @@ module.exports = db.define('lessons', {
         },
         user_id: Sequelize.STRING,
         open_id: Sequelize.STRING,
+        nick_name: Sequelize.STRING,
+        head_img_url: Sequelize.STRING,
         prize_id: Sequelize.INTEGER,
         prize_name: Sequelize.STRING,
         is_get: Sequelize.INTEGER,
