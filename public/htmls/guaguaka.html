@@ -82,11 +82,11 @@
 
     $(function () {
 
-        var hrefArr = window.location.href.split("?");
-        var params = hrefArr[1].split("=");
-        var openid = params[1];
-        var nickname = params[2];
-        var headimgurl = params[3];
+        var hrefArr = window.location.href.split('?');
+        var params = hrefArr[1].split('&');
+        var openid = params[0].split('=')[1];
+        var nickname = params[1].split('=')[1];
+        var headimgurl = params[2].split('=')[1];
         console.log('openid:'+openid+',nickname:'+nickname +',headimgurl:'+headimgurl);
 
 
