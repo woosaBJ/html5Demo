@@ -14,7 +14,7 @@ var conf = {
         //PASSWORD: '',
         //DB: 'woosa',
 
-        LOGGING: false
+        LOGGING: true
     },
 
     WE_CHAT:{
