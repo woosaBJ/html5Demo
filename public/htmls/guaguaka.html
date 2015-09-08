@@ -54,8 +54,8 @@
             <div class="panel panel-info">
                 <div class="panel-heading">奖项设置</div>
                 <div class="panel-body">
-                    <ol class="prize_set">
-                    </ol>
+                    <table id="prize_set" class="table">
+                    </table>
                 </div>
             </div>
         </div>
@@ -64,7 +64,7 @@
             <div class="panel panel-danger">
                 <div class="panel-heading">中奖情况</div>
                 <div class="panel-body">
-                    <table id="prize_result" class="table table-striped">
+                    <table id="prize_result" class="table">
                     </table>
                 </div>
             </div>
@@ -196,7 +196,7 @@
         function getPrizeSet() {
             $.getJSON('/api/prize_info/name/guaguaka', function (data) {
                 $(data).each(function (index) {
-                    $(".prize_set").append("<li>" + data[index].description + ":" + data[index].content + ", 数量:" + data[index].limits + "台。</li>");
+                    $("#prize_set").append("<tr><td>" + data[index].description + "</td><td>" + data[index].content + "</td><td>" + data[index].limits + "台</td></tr>");
                 });
             });
         }
