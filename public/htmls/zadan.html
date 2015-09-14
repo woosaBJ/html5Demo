@@ -40,8 +40,8 @@
                 <div class="panel panel-info">
                     <div class="panel-heading">奖项设置</div>
                     <div class="panel-body">
-                        <ol class="prize_set">
-                        </ol>
+                        <table id="prize_set" class="table">
+                        </table>
                     </div>
                 </div>
             </div>
@@ -50,14 +50,15 @@
                 <div class="panel panel-danger">
                     <div class="panel-heading">中奖情况</div>
                     <div class="panel-body">
-                        <ol class="prize_result">
-                        </ol>
+                        <table id="prize_result" class="table">
+                        </table>
                     </div>
                 </div>
             </div>
     </div>
 </div>
 <script type="text/javascript" src="../javascripts/jquery.js"></script>
+<script src="../javascripts/moment.js"></script>
 <script type="text/javascript">
 
     $(function () {
@@ -159,7 +160,7 @@
                 prizeSet = data;
                 $(data).each(function (index) {
                     if(index < $(data).length-1){
-                        $(".prize_set").append("<li>" + data[index].description + ":" + data[index].content + ", 数量:" + data[index].limits + "。</li>");
+                        $("#prize_set").append("<tr><td>" + data[index].description + "</td><td>" + data[index].content + "</td><td>" + data[index].limits + "台</td></tr>");
                     }
                 });
             });
@@ -206,7 +207,7 @@
                 $(data).each(function (index) {
                     $.getJSON("/api/prize_info/" + data[index].prize_id, function (priz) {
 //                        console.log(data[index].prize_id);
-                        $(".prize_result").append("<li>用户" + data[index].user_id.substring(0, 3) +"****" + data[index].user_id.substring(7, 11) + "获得" + priz.content + "</li>");
+                        $("#prize_result").append('<tr><td><img src=\"' + data[index].head_img_url +'\" class=\"img-circle\" style=\"width: 30px; height:30px;\"/></td><td>' + data[index].nick_name + '</td><td>' + priz.content + '</td><td>' + moment(data[index].created_at).format("YYYY-MM-DD hh:mm:ss") +"</td></tr>");
                     });
                 });
             });
