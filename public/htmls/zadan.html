@@ -63,10 +63,11 @@
 
     $(function () {
 
-        var hrefArr = window.location.href.split("?");
-        var params = hrefArr[1].split("=");
-        var openid = params[1];
-        console.log(openid);
+        var hrefArr = window.location.href.split('?');
+        var params = hrefArr[1].split('&');
+        var openid = params[0].split('=')[1];
+        var nickname = params[1].split('=')[1];
+        var headimgurl = params[2].split('=')[1];
 
         init();
 
@@ -190,6 +191,8 @@
                 data: {
                     user_id: $('#mobile').val(),
                     open_id: openid,
+                    nick_name: nickname,
+                    head_img_url: headimgurl,
                     prize_id: prize.id,
                     prize_name: prize.name,
                     is_get: 0
