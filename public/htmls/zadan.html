@@ -210,7 +210,7 @@
                 $(data).each(function (index) {
                     $.getJSON("/api/prize_info/" + data[index].prize_id, function (priz) {
 //                        console.log(data[index].prize_id);
-                        $("#prize_result").append('<tr><td><img src=\"' + data[index].head_img_url +'\" class=\"img-circle\" style=\"width: 30px; height:30px;\"/></td><td>' + data[index].nick_name + '</td><td>' + priz.content + '</td><td>' + moment(data[index].created_at).format("YYYY-MM-DD hh:mm:ss") +"</td></tr>");
+                        $("#prize_result").append('<tr><td><img src=\"' + data[index].head_img_url +'\" class=\"img-circle\" style=\"width: 30px; height:30px;\"/></td><td>' + decodeURI(data[index].nick_name) + '</td><td>' + priz.content + '</td><td>' + moment(data[index].created_at).format("YYYY-MM-DD hh:mm:ss") +"</td></tr>");
                     });
                 });
             });
