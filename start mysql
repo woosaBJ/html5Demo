@@ -20,6 +20,6 @@ sudo /usr/local/bin/mysql.server start
 
 
 /api/we_chat/verify/?signature=12414d39d1e95fef078429c5714324db3673265c&echostr=8384033737254358973&timestamp=1440992189&nonce=1310680300
-
+ln -s /Users/woosa/PhpStormProjects/weimik  /Applications/XAMPP/htdocs/weimik
 
 
