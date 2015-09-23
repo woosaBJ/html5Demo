@@ -32,7 +32,31 @@ function getWinInfoByUserId(userId){
 }
 
 function getWinInfosByPrizeName(prizeName){
-    return winInfoDao.findByPrizeName(prizeName);
+    //return winInfoDao.findByPrizeName(prizeName);
+    return winInfoDao.findByPrizeName(prizeName)
+        .then(function(winInfoObjs) {
+            var winInfos = [];
+            var promises = [];
+            winInfoObjs.forEach(function (winInfoObj) {
+                prizeInfoDao.findById(winInfoObj.prize_id)
+                    .then(function(prizeInfos){
+                        promises.push(prizeInfos.get({
+                            plain: true
+                        }));
+                    })
+                winInfos.push(winInfoObj.get({
+                    plain: true
+                }));
+            });
+
+            return Q.all(promises).then(function(pirzeInfoObjs) {
+                pirzeInfoObjs.forEach(function(prizeInfoObj, index) {
+                    winInfos[index].prizeInfo = prizeInfoObj[index];
+                });
+                logger.debug(winInfos);
+                return winInfos;
+            });
+        })
 }
 
 function getSumWinInfosByPrizeName(winPrize){
